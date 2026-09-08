@@ -199,3 +199,34 @@ h1 {
   border-top: 1px solid #ddd;
   padding-top: 10px;
 }
+/* Floating / Sticky Cart Summary Bar */
+.cart-summary {
+  position: sticky;
+  top: 10px;
+  z-index: 1000;
+  background-color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Floating View Cart Button */
+.cart-summary button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cart-summary button:hover {
+  background-color: #218838;
+}
+
