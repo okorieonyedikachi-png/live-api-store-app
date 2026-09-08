@@ -47,3 +47,37 @@ export function clearCartState() {
   cart = [];
   saveCart();
 }
+// Function to show/hide the cart modal
+export function toggleCartModal() {
+  const modal = document.getElementById('cartModal');
+  if (modal) {
+    if (modal.style.display === 'block') {
+      modal.style.display = 'none';
+    } else {
+      modal.style.display = 'block';
+      renderCartItems();
+    }
+  }
+}
+
+// Function to render items inside the cart modal
+function renderCartItems() {
+  const cartList = document.getElementById('cartItemsList');
+  if (!cartList) return;
+
+  if (cart.length === 0) {
+    cartList.innerHTML = '<p class="empty-cart-msg">Your cart is empty.</p>';
+    return;
+  }
+
+  cartList.innerHTML = cart
+    .map(
+      (item) => `
+    <div class="cart-item">
+      <span>${item.title}</span>
+      <span>$${item.price}</span>
+    </div>
+  `
+    )
+    .join('');
+}
