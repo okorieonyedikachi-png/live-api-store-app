@@ -80,3 +80,11 @@ window.addEventListener('click', (event) => {
 // Run application on load
 updateCartUI();
 initApp('all');
+// Expose modal toggle functions to inline HTML click handlers
+window.openCart = function() {
+  document.getElementById('cartModal').classList.add('open');
+};
+
+window.closeCart = function() {
+  document.getElementById('cartModal').classList.remove('open');
+};
