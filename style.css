@@ -1,222 +1,59 @@
-/* Reset & Base Styles */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: #333;
-    line-height: 1.6;
-}
-
-/* Header & Navbar */
-header {
-    background-color: #1a252f;
-    color: #ffffff;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-header h1 {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-/* Search Bar */
-.search-container {
-    margin: 1.5rem auto;
-    max-width: 600px;
-    padding: 0 1rem;
-}
-
-.search-container input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 25px;
-    font-size: 1rem;
-    outline: none;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-/* Product Grid */
-.product-grid {
+/* Product Grid Layout */
+.product-grid, .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 2rem;
-    padding: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* Product Cards */
+/* Product Card Styling */
 .product-card {
     background-color: #ffffff;
     border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    color: #333333;
 }
 
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0,0,0,0.15);
-}
-
+/* Constrain Product Image Size */
 .product-card img {
-    width: 100%;
-    height: 200px;
+    max-width: 100%;
+    height: 180px;
     object-fit: contain;
-    padding: 1rem;
-    background-color: #fff;
+    margin-bottom: 12px;
 }
 
-.product-info {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+/* Title, Price, and Button Styling */
+.product-card h3 {
+    font-size: 1rem;
+    margin: 10px 0;
+    color: #222222;
 }
 
-.product-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
-
-.product-price {
-    font-size: 1.25rem;
-    color: #2c3e50;
+.product-card p {
     font-weight: bold;
-    margin-bottom: 1rem;
+    color: #007bff;
+    margin-bottom: 10px;
 }
 
-.add-to-cart-btn {
-    background-color: #3498db;
-    color: #ffffff;
-    border: none;
-    padding: 0.6rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.2s ease;
-    width: 100%;
-    margin-top: auto;
-}
-
-.add-to-cart-btn:hover {
-    background-color: #2980b9;
-}
-
-/* Modal Styling */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #888;
-}
-
-.close-btn:hover {
-    color: #333;
-}
-
-/* Cart Specific Styles */
-.cart-summary {
-    background-color: #ffffff;
-    padding: 12px 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-/* Floating View Cart Button */
-.cart-summary button {
+.product-card button {
     background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.cart-summary button:hover {
-    background-color: #218838;
-}
-body {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-}
-/* Ensure the Header is fully solid dark so text is easy to read */
-header {
-    background-color: #1a252f !important;
     color: #ffffff;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    z-index: 10;
-}
-
-/* Ensure Product Cards have a solid white background and constrained image height */
-.product-card {
-    background-color: #ffffff !important;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.product-card img {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
     width: 100%;
-    height: 200px;
-    object-fit: contain;
-    padding: 1rem;
-    background-color: #ffffff;
+}
+
+.product-card button:hover {
+    background-color: #218838;
 }
