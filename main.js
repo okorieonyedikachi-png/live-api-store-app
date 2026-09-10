@@ -88,3 +88,28 @@ window.openCart = function() {
 window.closeCart = function() {
   document.getElementById('cartModal').classList.remove('open');
 };
+// Expose toggle functions to window for any remaining inline handlers
+window.openCart = function() {
+  const modal = document.getElementById('cartModal');
+  if (modal) modal.classList.add('open');
+};
+
+window.closeCart = function() {
+  const modal = document.getElementById('cartModal');
+  if (modal) modal.classList.remove('open');
+};
+
+// Event listener for category filter buttons
+document.addEventListener('DOMContentLoaded', () => {
+  const categoryContainer = document.querySelector('.category-buttons');
+  if (categoryContainer) {
+    categoryContainer.addEventListener('click', (e) => {
+      if (e.target.tagName === 'BUTTON') {
+        const category = e.target.getAttribute('data-category');
+        if (typeof fetchProductsByCategory === 'function') {
+          fetchProductsByCategory(category);
+        }
+      }
+    });
+  }
+});
