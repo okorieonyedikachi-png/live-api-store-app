@@ -1,59 +1,62 @@
-/* Product Grid Layout */
-.product-grid, .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+/* Product Grid */
+#productGrid, .product-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+    gap: 20px !important;
+    padding: 20px !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
 }
 
-/* Product Card Styling */
-.product-card {
-    background-color: #ffffff;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    color: #333333;
+/* Product Card */
+.card {
+    background-color: #ffffff !important;
+    border-radius: 8px !important;
+    padding: 15px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    text-align: center !important;
+    color: #333333 !important;
 }
 
-/* Constrain Product Image Size */
-.product-card img {
-    max-width: 100%;
-    height: 180px;
-    object-fit: contain;
-    margin-bottom: 12px;
+/* Card Image Constraint */
+.card img {
+    max-width: 100% !important;
+    max-height: 160px !important;
+    height: auto !important;
+    object-fit: contain !important;
+    margin-bottom: 12px !important;
+    display: block !important;
 }
 
-/* Title, Price, and Button Styling */
-.product-card h3 {
-    font-size: 1rem;
-    margin: 10px 0;
-    color: #222222;
+/* Titles and Prices */
+.card h3 {
+    font-size: 0.95rem !important;
+    margin: 8px 0 !important;
+    color: #222222 !important;
 }
 
-.product-card p {
-    font-weight: bold;
-    color: #007bff;
-    margin-bottom: 10px;
+.card p.price {
+    font-weight: bold !important;
+    color: #007bff !important;
+    margin-bottom: 10px !important;
 }
 
-.product-card button {
-    background-color: #28a745;
-    color: #ffffff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    width: 100%;
+/* Add to Cart Button */
+.add-btn {
+    background-color: #28a745 !important;
+    color: #ffffff !important;
+    border: none !important;
+    padding: 8px 12px !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    font-weight: bold !important;
+    width: 100% !important;
 }
 
-.product-card button:hover {
-    background-color: #218838;
+.add-btn:hover {
+    background-color: #218838 !important;
 }
