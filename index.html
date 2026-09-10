@@ -4,7 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Daily Outlet</title>
-    <link rel="stylesheet" href="style.css?v=2">
+    <style>
+  /* Reset & Global Background */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8 !important;
+    color: #333333;
+  }
+
+  /* Main Container */
+  #productGrid, .product-grid, .grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+    gap: 20px !important;
+    padding: 20px !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+  }
+
+  /* Product Card */
+  .card, .product-card {
+    background: #ffffff !important;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 8px !important;
+    padding: 15px !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Image Size Constraint */
+  .card img, .product-card img, #productGrid img {
+    max-width: 100% !important;
+    height: 150px !important;
+    width: auto !important;
+    object-fit: contain !important;
+    margin-bottom: 12px !important;
+    display: block !important;
+  }
+
+  /* Titles & Prices */
+  .card h3, .product-card h3 {
+    font-size: 0.95rem !important;
+    margin: 8px 0 !important;
+    color: #222222 !important;
+    height: 2.6em !important;
+    overflow: hidden !important;
+  }
+
+  .card p, .product-card p, p.price {
+    font-weight: bold !important;
+    color: #007bff !important;
+    margin-bottom: 10px !important;
+  }
+
+  /* Add to Cart Button */
+  .add-btn, .product-card button, #productGrid button {
+    background-color: #28a745 !important;
+    color: #ffffff !important;
+    border: none !important;
+    padding: 10px 14px !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    font-weight: bold !important;
+    width: 100% !important;
+  }
+
+  .add-btn:hover, .product-card button:hover {
+    background-color: #218838 !important;
+  }
+</style>
+
 </head>
 <body>
 
