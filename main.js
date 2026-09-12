@@ -1,115 +1,68 @@
-// main.js - Application entry point connecting modules and event listeners
-import { fetchProductsByCategory } from './api.js';
-import {
-  renderProducts,
-  setCurrentProducts,
-  updateCartUI,
-  showLoading,
-  hideLoading,
-  showError,
-  toggleCartModal,
-  toggleCheckoutModal,
-  openCheckoutFromModal,
-  clearCartUI,
-} from './ui.js';
+import { addToCart, clearCart } from './cart.js';
+import { renderProducts, updateCartUI } from './ui.js';
 
 let allProducts = [];
 
-// Initialize data and UI
-async function initApp(category = 'all') {
-  showLoading(`Fetching ${category} products... ⏳`);
-
-  const { data, error } = await fetchProductsByCategory(category);
-
-  if (error) {
-    showError('❌ Failed to load products. Check your internet connection!');
-    return;
-  }
-
-  allProducts = data;
-  setCurrentProducts(allProducts);
-  hideLoading();
-  renderProducts(allProducts);
-}
-
-// Search Filter Logic
+const productGrid = document.getElementById('productGrid');
+const loadingText = document.getElementById('loadingText');
 const searchInput = document.getElementById('searchInput');
-if (searchInput) {
-  searchInput.addEventListener('input', (e) => {
-    const term = e.target.value.toLowerCase();
-    const filtered = allProducts.filter((item) =>
-      item.title.toLowerCase().includes(term)
-    );
-    renderProducts(filtered);
-  });
+const categoryContainer = document.getElementById('categoryContainer');
+const cartModal = document.getElementById('cartModal');
+const viewCartBtn = document.getElementById('viewCartBtn');
+const closeCartBtn = document.getElementById('closeCartBtn');
+const clearCartBtn = document.getElementById('clearCartBtn');
+
+// Fetch Products from API
+async function fetchProducts() {
+  try {
+    const response = await fetch('https://fakestoreapi.com/products');
+    allProducts = await response.json();
+    loadingText.style.display = 'none';
+    renderProducts(allProducts, productGrid, handleAddToCart);
+  } catch (error) {
+    loadingText.innerHTML = '<p style="color: #ef4444;">Failed to load products. Check internet connection.</p>';
+  }
 }
 
-// Global window event bindings for HTML inline listeners
-window.toggleCartModal = toggleCartModal;
-window.toggleCheckoutModal = toggleCheckoutModal;
-window.openCheckoutFromModal = openCheckoutFromModal;
-window.clearCart = clearCartUI;
+function handleAddToCart(product) {
+  addToCart(product);
+  updateCartUI();
+}
 
-window.handleCheckout = function (event) {
-  event.preventDefault();
-
-  const name = document.getElementById('userName').value;
-  const email = document.getElementById('userEmail').value;
-
-  alert(`Processing order for ${name}... ⏳`);
-
-  setTimeout(() => {
-    alert(
-      `Thank you for your order, ${name}! A confirmation email has been sent to ${email}. 🎉`
-    );
-    clearCartUI();
-    toggleCheckoutModal();
-    document.getElementById('checkoutForm').reset();
-  }, 1000);
-};
-
-// Close modals when clicking outside window content
-window.addEventListener('click', (event) => {
-  const cartModal = document.getElementById('cartModal');
-  const checkoutModal = document.getElementById('checkoutModal');
-
-  if (event.target === cartModal) cartModal.style.display = 'none';
-  if (event.target === checkoutModal) checkoutModal.style.display = 'none';
+// Search Filter Handler
+searchInput.addEventListener('input', (e) => {
+  const term = e.target.value.toLowerCase().trim();
+  const filtered = allProducts.filter(p => p.title.toLowerCase().includes(term));
+  renderProducts(filtered, productGrid, handleAddToCart);
 });
 
-// Run application on load
-updateCartUI();
-initApp('all');
-// Expose modal toggle functions to inline HTML click handlers
-window.openCart = function() {
-  document.getElementById('cartModal').classList.add('open');
-};
+// Category Filter Handler
+categoryContainer.addEventListener('click', (e) => {
+  if (e.target.classList.contains('filter-btn')) {
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    e.target.classList.add('active');
 
-window.closeCart = function() {
-  document.getElementById('cartModal').classList.remove('open');
-};
-// Expose toggle functions to window for any remaining inline handlers
-window.openCart = function() {
-  const modal = document.getElementById('cartModal');
-  if (modal) modal.classList.add('open');
-};
-
-window.closeCart = function() {
-  const modal = document.getElementById('cartModal');
-  if (modal) modal.classList.remove('open');
-};
-
-// Event listener for category filter buttons
-document.addEventListener('DOMContentLoaded', () => {
-  const categoryContainer = document.querySelector('.category-buttons');
-  if (categoryContainer) {
-    categoryContainer.addEventListener('click', (e) => {
-      if (e.target.tagName === 'BUTTON') {
-        const category = e.target.getAttribute('data-category');
-        if (typeof fetchProductsByCategory === 'function') {
-          fetchProductsByCategory(category);
-        }
-      }
-    });
+    const category = e.target.getAttribute('data-category');
+    if (category === 'all') {
+      renderProducts(allProducts, productGrid, handleAddToCart);
+    } else {
+      const filtered = allProducts.filter(p => p.category.toLowerCase() === category.toLowerCase());
+      renderProducts(filtered, productGrid, handleAddToCart);
+    }
   }
 });
+
+// Modal Toggles
+viewCartBtn.addEventListener('click', () => cartModal.classList.add('open'));
+closeCartBtn.addEventListener('click', () => cartModal.classList.remove('open'));
+cartModal.addEventListener('click', (e) => {
+  if (e.target === cartModal) cartModal.classList.remove('open');
+});
+
+clearCartBtn.addEventListener('click', () => {
+  clearCart();
+  updateCartUI();
+});
+
+// Initial App Load
+fetchProducts();
