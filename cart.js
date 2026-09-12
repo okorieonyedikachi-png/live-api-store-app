@@ -1,4 +1,9 @@
-let cart = [];
+// Load cart from localStorage on page initialization
+let cart = JSON.parse(localStorage.getItem('daily_outlet_cart')) || [];
+
+function saveCart() {
+  localStorage.setItem('daily_outlet_cart', JSON.stringify(cart));
+}
 
 export function addToCart(product) {
   const existingProduct = cart.find(item => item.id === product.id);
@@ -7,6 +12,7 @@ export function addToCart(product) {
   } else {
     cart.push({ ...product, quantity: 1 });
   }
+  saveCart();
 }
 
 export function updateQuantity(productId, delta) {
@@ -15,16 +21,20 @@ export function updateQuantity(productId, delta) {
     product.quantity += delta;
     if (product.quantity <= 0) {
       removeFromCart(productId);
+      return;
     }
   }
+  saveCart();
 }
 
 export function removeFromCart(productId) {
   cart = cart.filter(item => item.id !== productId);
+  saveCart();
 }
 
 export function clearCart() {
   cart = [];
+  saveCart();
 }
 
 export function getCart() {

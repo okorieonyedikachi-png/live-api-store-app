@@ -1,4 +1,4 @@
-import { addToCart, clearCart } from './cart.js';
+import { addToCart, clearCart, getCart } from './cart.js';
 import { renderProducts, updateCartUI } from './ui.js';
 
 let allProducts = [];
@@ -11,6 +11,7 @@ const cartModal = document.getElementById('cartModal');
 const viewCartBtn = document.getElementById('viewCartBtn');
 const closeCartBtn = document.getElementById('closeCartBtn');
 const clearCartBtn = document.getElementById('clearCartBtn');
+const checkoutBtn = document.getElementById('checkoutBtn');
 
 // Fetch Products from API
 async function fetchProducts() {
@@ -64,5 +65,20 @@ clearCartBtn.addEventListener('click', () => {
   updateCartUI();
 });
 
+// Checkout Button Handler
+checkoutBtn.addEventListener('click', () => {
+  const cart = getCart();
+  if (cart.length === 0) {
+    alert('Your cart is empty!');
+    return;
+  }
+  
+  alert('Thank you for your purchase! Your order has been placed.');
+  clearCart();
+  updateCartUI();
+  cartModal.classList.remove('open');
+});
+
 // Initial App Load
 fetchProducts();
+updateCartUI();
