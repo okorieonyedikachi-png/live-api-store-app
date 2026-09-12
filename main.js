@@ -7,11 +7,18 @@ const productGrid = document.getElementById('productGrid');
 const loadingText = document.getElementById('loadingText');
 const searchInput = document.getElementById('searchInput');
 const categoryContainer = document.getElementById('categoryContainer');
+
+// Cart Modal Elements
 const cartModal = document.getElementById('cartModal');
 const viewCartBtn = document.getElementById('viewCartBtn');
 const closeCartBtn = document.getElementById('closeCartBtn');
 const clearCartBtn = document.getElementById('clearCartBtn');
+
+// Checkout Modal Elements
 const checkoutBtn = document.getElementById('checkoutBtn');
+const checkoutModal = document.getElementById('checkoutModal');
+const closeCheckoutBtn = document.getElementById('closeCheckoutBtn');
+const checkoutForm = document.getElementById('checkoutForm');
 
 // Fetch Products from API
 async function fetchProducts() {
@@ -53,7 +60,7 @@ categoryContainer.addEventListener('click', (e) => {
   }
 });
 
-// Modal Toggles
+// Shopping Cart Modal Controls
 viewCartBtn.addEventListener('click', () => cartModal.classList.add('open'));
 closeCartBtn.addEventListener('click', () => cartModal.classList.remove('open'));
 cartModal.addEventListener('click', (e) => {
@@ -65,18 +72,37 @@ clearCartBtn.addEventListener('click', () => {
   updateCartUI();
 });
 
-// Checkout Button Handler
+// Open Checkout Form Modal from Cart
 checkoutBtn.addEventListener('click', () => {
   const cart = getCart();
   if (cart.length === 0) {
     alert('Your cart is empty!');
     return;
   }
+  cartModal.classList.remove('open');
+  checkoutModal.classList.add('open');
+});
+
+// Close Checkout Modal
+closeCheckoutBtn.addEventListener('click', () => checkoutModal.classList.remove('open'));
+checkoutModal.addEventListener('click', (e) => {
+  if (e.target === checkoutModal) checkoutModal.classList.remove('open');
+});
+
+// Handle Checkout Form Submission
+checkoutForm.addEventListener('submit', (e) => {
+  e.preventDefault();
   
-  alert('Thank you for your purchase! Your order has been placed.');
+  const name = document.getElementById('fullName').value;
+  const phone = document.getElementById('phoneNumber').value;
+  const address = document.getElementById('address').value;
+
+  alert(`Thank you, ${name}! Your order has been placed successfully.\nShipping to: ${address}\nContact: ${phone}`);
+
+  checkoutForm.reset();
   clearCart();
   updateCartUI();
-  cartModal.classList.remove('open');
+  checkoutModal.classList.remove('open');
 });
 
 // Initial App Load

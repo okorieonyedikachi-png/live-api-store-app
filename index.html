@@ -70,6 +70,34 @@
     </div>
   </div>
 
+    <!-- Checkout Modal Overlay -->
+  <div id="checkoutModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>Checkout Details</h2>
+        <button id="closeCheckoutBtn" class="close-btn">&times;</button>
+      </div>
+      <form id="checkoutForm" class="modal-body">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" required placeholder="John Doe">
+        </div>
+        <div class="form-group">
+          <label for="phoneNumber">Phone Number</label>
+          <input type="tel" id="phoneNumber" required placeholder="+234 800 000 0000">
+        </div>
+        <div class="form-group">
+          <label for="address">House Address</label>
+          <textarea id="address" rows="3" required placeholder="123 Main Street, City"></textarea>
+        </div>
+        <div class="modal-actions" style="margin-top: 15px;">
+          <button type="submit" class="btn-primary">Place Order</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
   <!-- JavaScript Application Entry point -->
   <script type="module" src="main.js"></script>
 </body>
