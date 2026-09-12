@@ -6,8 +6,8 @@ export function renderProducts(products, containerElement, onAddToCart) {
     const card = document.createElement('div');
     card.className = 'product-card';
     card.innerHTML = `
-      <div class="img-container">
-        <img src="${product.image}" alt="${product.title}">
+      <div class="img-container" style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 10px;">
+        <img src="${product.image}" alt="${product.title}" style="max-width: 100%; max-height: 180px; width: auto; height: auto; object-fit: contain;">
       </div>
       <div class="card-body">
         <h3 class="card-title">${product.title}</h3>
@@ -21,6 +21,7 @@ export function renderProducts(products, containerElement, onAddToCart) {
     containerElement.appendChild(card);
   });
 }
+
 
 export function updateCartUI() {
   const { totalCount, totalPrice } = getCartTotals();
