@@ -95,7 +95,7 @@ checkoutForm.addEventListener('submit', (e) => {
 
     const currentCart = getCart();
   const name = document.getElementById('fullName').value;
-  const email = document.getElementById('email').value;
+  const email = document.getElementById('customerEmail').value;
   const phone = document.getElementById('phoneNumber').value;
   const address = document.getElementById('address').value;
 
