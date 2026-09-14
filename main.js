@@ -1,4 +1,4 @@
-import { addToCart, clearCart, getCart } from './cart.js';
+import { addToCart, clearCart, getCart, getCartTotal, saveOrder } from './cart.js';
 import { renderProducts, updateCartUI } from './ui.js';
 
 let allProducts = [];
@@ -92,20 +92,24 @@ checkoutModal.addEventListener('click', (e) => {
 // Handle Checkout Form Submission
 checkoutForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  
+
+  const currentCart = getCart();
   const name = document.getElementById('fullName').value;
   const phone = document.getElementById('phoneNumber').value;
   const address = document.getElementById('address').value;
 
-  alert(`Thank you, ${name}! Your order has been placed successfully.\nShipping to: ${address}\nContact: ${phone}`);
+  const customerDetails = { name, phone, address };
 
-  checkoutForm.reset();
+  const newOrderId = saveOrder(currentCart, getCartTotal(), customerDetails);
+
   clearCart();
   updateCartUI();
+  checkoutForm.reset();
   checkoutModal.classList.remove('open');
+
+  alert(`Thank you, ${name}!\n\nYour order has been placed successfully.\n\nYour Order Tracking ID is: ${newOrderId}\n(Copy this ID to track your order status)`);
 });
 
-import { saveOrder } from './cart.js';
 
 // Order Tracking Event Listener
 const trackBtn = document.getElementById("trackBtn");
