@@ -46,3 +46,25 @@ export function getCartTotals() {
   const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   return { totalCount, totalPrice: totalPrice.toFixed(2) };
 }
+// Generate a unique Order ID (e.g., ORD-48291)
+function generateOrderId() {
+  const randomNum = Math.floor(10000 + Math.random() * 90000);
+  return `ORD-${randomNum}`;
+}
+
+// Save order to localStorage
+export function saveOrder(cartItems, totalAmount, customerDetails) {
+  const newOrder = {
+    id: generateOrderId(),
+    customer: customerDetails,
+    items: cartItems,
+    total: totalAmount,
+    timestamp: Date.now() // Milliseconds timestamp for status calculations
+  };
+
+  const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
+  existingOrders.push(newOrder);
+  localStorage.setItem("orders", JSON.stringify(existingOrders));
+
+  return newOrder.id;
+}

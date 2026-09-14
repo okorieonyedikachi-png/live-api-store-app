@@ -105,6 +105,45 @@ checkoutForm.addEventListener('submit', (e) => {
   checkoutModal.classList.remove('open');
 });
 
+import { saveOrder } from './cart.js';
+
+// Order Tracking Event Listener
+const trackBtn = document.getElementById("trackBtn");
+const trackInput = document.getElementById("trackInput");
+const trackingResult = document.getElementById("trackingResult");
+
+if (trackBtn) {
+  trackBtn.addEventListener("click", () => {
+    const orderId = trackInput.value.trim().toUpperCase();
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
+    const foundOrder = orders.find(o => o.id.toUpperCase() === orderId);
+
+    if (!foundOrder) {
+      trackingResult.innerHTML = `<span style="color: red;">Order ID not found.</span>`;
+      return;
+    }
+
+    // Calculate status based on elapsed time (minutes since order)
+    const elapsedMinutes = (Date.now() - foundOrder.timestamp) / (1000 * 60);
+    let status = "Processing ⏳";
+    if (elapsedMinutes >= 5) {
+      status = "Delivered ✅";
+    } else if (elapsedMinutes >= 2) {
+      status = "Shipped 🚚";
+    }
+
+    trackingResult.innerHTML = `
+      <div style="border: 1px solid #ddd; padding: 15px; border-radius: 6px; background: #f9f9f9; text-align: left;">
+        <p><strong>Order ID:</strong> ${foundOrder.id}</p>
+        <p><strong>Customer:</strong> ${foundOrder.customer.name}</p>
+        <p><strong>Total:</strong> $${foundOrder.total.toFixed(2)}</p>
+        <p><strong>Status:</strong> <span style="color: #007bff;">${status}</span></p>
+      </div>
+    `;
+  });
+}
+
+
 // Initial App Load
 fetchProducts();
 updateCartUI();
