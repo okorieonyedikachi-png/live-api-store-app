@@ -1,4 +1,4 @@
-import { addToCart, clearCart, getCart, getCartTotal, saveOrder } from './cart.js';
+import { addToCart, clearCart, getCart, saveOrder } from './cart.js';
 import { renderProducts, updateCartUI } from './ui.js';
 
 let allProducts = [];
@@ -100,7 +100,9 @@ checkoutForm.addEventListener('submit', (e) => {
 
   const customerDetails = { name, phone, address };
 
-  const newOrderId = saveOrder(currentCart, getCartTotal(), customerDetails);
+  const cartTotal = currentCart.reduce((total, item) => total + item.price * item.quantity, 0);
+const newOrderId = saveOrder(currentCart, cartTotal, customerDetails);
+
 
   clearCart();
   updateCartUI();
