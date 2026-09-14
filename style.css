@@ -183,7 +183,7 @@ body {
   margin-bottom: 12px;
 }
 
-.add-btn, .btn-primary {
+.add-btn {
   background-color: #16a34a;
   color: #ffffff;
   border: none;
@@ -193,6 +193,19 @@ body {
   cursor: pointer;
   width: 100%;
 }
+
+.btn-primary {
+  background-color: #16a34a;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  width: auto;
+  white-space: nowrap;
+}
+
 
 .add-btn:hover, .btn-primary:hover {
   background-color: #15803d;
