@@ -93,24 +93,25 @@ checkoutModal.addEventListener('click', (e) => {
 checkoutForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  const currentCart = getCart();
+    const currentCart = getCart();
   const name = document.getElementById('fullName').value;
+  const email = document.getElementById('email').value;
   const phone = document.getElementById('phoneNumber').value;
   const address = document.getElementById('address').value;
 
-  const customerDetails = { name, phone, address };
+  const customerDetails = { name, email, phone, address };
 
   const cartTotal = currentCart.reduce((total, item) => total + item.price * item.quantity, 0);
-const newOrderId = saveOrder(currentCart, cartTotal, customerDetails);
-
+  const newOrderId = saveOrder(currentCart, cartTotal, customerDetails);
 
   clearCart();
   updateCartUI();
   checkoutForm.reset();
   checkoutModal.classList.remove('open');
 
-  alert(`Thank you, ${name}!\n\nYour order has been placed successfully.\n\nYour Order Tracking ID is: ${newOrderId}\n(Copy this ID to track your order status)`);
+  alert(`Thank you, ${name}!\n\nYour order has been placed successfully.\n\nYour Order Tracking ID is: ${newOrderId}`);
 });
+
 
 
 // Order Tracking Event Listener
