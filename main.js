@@ -149,6 +149,63 @@ if (trackBtn) {
   });
 }
 
+// Orders Modal Elements
+const ordersModal = document.getElementById('ordersModal');
+const viewOrdersBtn = document.getElementById('viewOrdersBtn');
+const closeOrdersBtn = document.getElementById('closeOrdersBtn');
+const ordersList = document.getElementById('ordersList');
+
+// Helper to render order history
+function renderOrderHistory() {
+  const orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+  if (orders.length === 0) {
+    ordersList.innerHTML = `<p style="text-align: center; color: #666;">No orders placed yet.</p>`;
+    return;
+  }
+
+  ordersList.innerHTML = orders.map(order => {
+    // Calculate live status based on timestamp
+    const elapsedMinutes = (Date.now() - order.timestamp) / (1000 * 60);
+    let status = "Processing ⏳";
+    if (elapsedMinutes >= 5) {
+      status = "Delivered ✅";
+    } else if (elapsedMinutes >= 2) {
+      status = "Shipped 🚚";
+    }
+
+    return `
+      <div style="border: 1px solid #ddd; padding: 12px; margin-bottom: 10px; border-radius: 6px;">
+        <p><strong>Order ID:</strong> ${order.id}</p>
+        <p><strong>Date:</strong> ${new Date(order.timestamp).toLocaleString()}</p>
+        <p><strong>Total:</strong> $${order.total.toFixed(2)}</p>
+        <p><strong>Status:</strong> <span style="color: #007bff; font-weight: bold;">${status}</span></p>
+      </div>
+    `;
+  }).join('');
+}
+
+// Open Orders Modal
+if (viewOrdersBtn) {
+  viewOrdersBtn.addEventListener('click', () => {
+    renderOrderHistory();
+    ordersModal.classList.add('open');
+  });
+}
+
+// Close Orders Modal
+if (closeOrdersBtn) {
+  closeOrdersBtn.addEventListener('click', () => {
+    ordersModal.classList.remove('open');
+  });
+}
+
+// Close modal when clicking outside content area
+window.addEventListener('click', (e) => {
+  if (e.target === ordersModal) {
+    ordersModal.classList.remove('open');
+  }
+});
 
 // Initial App Load
 fetchProducts();

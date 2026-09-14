@@ -15,7 +15,8 @@
       <span>Cart: <strong id="cartCount">0</strong> items</span>
       <span class="divider">|</span>
       <span>Total: <strong id="cartTotal">$0.00</strong></span>
-      <button id="viewCartBtn" class="cart-btn">🛒 View Cart</button>
+      <button id="viewCartBtn" class="cart-btn">View Cart</button>
+      <button id="viewOrdersBtn" class="nav-btn">My Orders </button>
     </div>
   </header>
 
@@ -105,9 +106,22 @@
       </form>
     </div>
   </div>
+<!-- Orders History Modal -->
+<div id="ordersModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Order History & Status</h2>
+      <span id="closeOrdersBtn" class="close-btn">&times;</span>
+    </div>
+    <div id="ordersList" class="modal-body">
+      <!-- Dynamic list of orders will render here -->
+    </div>
+  </div>
+</div>
 
 
   <!-- JavaScript Application Entry point -->
   <script type="module" src="main.js"></script>
+
 </body>
 </html>
