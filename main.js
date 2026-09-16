@@ -208,6 +208,75 @@ window.addEventListener('click', (e) => {
   }
 });
 
+// Auth Modal Toggle
+const authModal = document.getElementById('authModal');
+const openAuthBtn = document.getElementById('openAuthBtn');
+const closeAuthBtn = document.getElementById('closeAuthBtn');
+const signupForm = document.getElementById('signupForm');
+
+// Open Modal
+if (openAuthBtn) {
+  openAuthBtn.addEventListener('click', () => {
+    authModal.classList.add('open');
+  });
+}
+
+// Close Modal
+if (closeAuthBtn) {
+  closeAuthBtn.addEventListener('click', () => {
+    authModal.classList.remove('open');
+  });
+}
+
+// Close Modal on Outside Click
+window.addEventListener('click', (e) => {
+  if (e.target === authModal) {
+    authModal.classList.remove('open');
+  }
+});
+
+// Handle Signup Submission
+if (signupForm) {
+  signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('signupName').value;
+    const email = document.getElementById('signupEmail').value;
+    const phone = document.getElementById('signupPhone').value;
+    const password = document.getElementById('signupPassword').value;
+
+    // Password Validation: 8+ chars, 1 uppercase, 1 number
+    const passwordPattern = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+    if (!passwordPattern.test(password)) {
+      alert('Password must be at least 8 characters long, contain at least one uppercase letter, and at least one number.');
+      return;
+    }
+
+    const newUser = { name, email, phone, password };
+
+    // Get existing users or set empty array
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    
+    // Check if email already exists
+    const userExists = users.some(user => user.email === email);
+    if (userExists) {
+      alert('An account with this email already exists!');
+      return;
+    }
+
+    // Save new user & set logged-in session
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
+    localStorage.setItem('currentUser', JSON.stringify(newUser));
+
+    alert(`Account created successfully! Welcome, ${name}.`);
+    
+    signupForm.reset();
+    authModal.classList.remove('open');
+  });
+}
+
+
 // Initial App Load
 fetchProducts();
 updateCartUI();
