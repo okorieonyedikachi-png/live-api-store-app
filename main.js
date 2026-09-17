@@ -323,6 +323,102 @@ document.addEventListener('DOMContentLoaded', () => {
   updateUIForAuthState();
 });
 
+let isLoginMode = false;
+
+// Target your existing elements
+const toggleAuthMode = document.getElementById('toggleAuthMode');
+const toggleMsg = document.getElementById('toggleMsg');
+const authTitle = document.getElementById('authTitle');
+const signupForm = document.getElementById('signupForm');
+
+// Group the Name & Phone fields so we can hide them on Login
+const nameGroup = document.getElementById('signupName').parentElement;
+const phoneGroup = document.getElementById('signupPhone').parentElement;
+const submitBtn = signupForm.querySelector('button[type="submit"]');
+
+// Toggle between Signup and Login
+if (toggleAuthMode) {
+  toggleAuthMode.addEventListener('click', (e) => {
+    e.preventDefault();
+    isLoginMode = !isLoginMode;
+
+    if (isLoginMode) {
+      authTitle.textContent = 'Log In';
+      nameGroup.style.display = 'none';
+      phoneGroup.style.display = 'none';
+      submitBtn.textContent = 'Log In';
+      toggleMsg.textContent = "Don't have an account?";
+      toggleAuthMode.textContent = 'Sign Up';
+      
+      // Remove required attribute for hidden fields
+      document.getElementById('signupName').required = false;
+      document.getElementById('signupPhone').required = false;
+    } else {
+      authTitle.textContent = 'Create an Account';
+      nameGroup.style.display = 'block';
+      phoneGroup.style.display = 'block';
+      submitBtn.textContent = 'Create Account';
+      toggleMsg.textContent = 'Already have an account?';
+      toggleAuthMode.textContent = 'Log In';
+
+      // Restore required attribute
+      document.getElementById('signupName').required = true;
+      document.getElementById('signupPhone').required = true;
+    }
+  });
+}
+
+// Handle Form Submission
+if (signupForm) {
+  signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('signupEmail').value.trim();
+    const password = document.getElementById('signupPassword').value;
+    const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+
+    if (isLoginMode) {
+      // --- LOGIN LOGIC ---
+      const userMatch = users.find(u => u.email === email && u.password === password);
+
+      if (userMatch) {
+        localStorage.setItem('currentUser', JSON.stringify(userMatch));
+        alert(`Welcome back, ${userMatch.fullName}!`);
+        document.getElementById('authModal').classList.add('hidden');
+        updateUIForAuthState();
+      } else {
+        alert('Invalid email or password. Please try again.');
+      }
+
+    } else {
+      // --- SIGN UP LOGIC ---
+      const fullName = document.getElementById('signupName').value.trim();
+      const phone = document.getElementById('signupPhone').value.trim();
+      const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+      if (!passwordRegex.test(password)) {
+        alert('Password must be at least 8 characters, with 1 uppercase letter and 1 number.');
+        return;
+      }
+
+      if (users.some(u => u.email === email)) {
+        alert('An account with this email already exists. Please log in.');
+        return;
+      }
+
+      const newUser = { fullName, email, phone, password };
+      users.push(newUser);
+
+      localStorage.setItem('registeredUsers', JSON.stringify(users));
+      localStorage.setItem('currentUser', JSON.stringify(newUser));
+
+      alert('Account created successfully!');
+      document.getElementById('authModal').classList.add('hidden');
+      updateUIForAuthState();
+    }
+  });
+}
+
 
 
 // Initial App Load
