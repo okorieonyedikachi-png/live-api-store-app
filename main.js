@@ -329,7 +329,6 @@ let isLoginMode = false;
 const toggleAuthMode = document.getElementById('toggleAuthMode');
 const toggleMsg = document.getElementById('toggleMsg');
 const authTitle = document.getElementById('authTitle');
-const signupForm = document.getElementById('signupForm');
 
 // Group the Name & Phone fields so we can hide them on Login
 const nameGroup = document.getElementById('signupName').parentElement;
