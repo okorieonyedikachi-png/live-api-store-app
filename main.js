@@ -328,7 +328,7 @@ function updateUIForAuthState() {
       userWelcome.classList.add('hidden');
     }
   }
-}
+
 
 // Logout Handler
 function handleLogout() {
