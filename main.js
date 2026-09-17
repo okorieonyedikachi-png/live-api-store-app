@@ -276,6 +276,54 @@ if (signupForm) {
   });
 }
 
+// Function to update header based on login status
+function updateUIForAuthState() {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const viewCartBtn = document.getElementById('view-cart-btn');
+  const myOrdersBtn = document.getElementById('my-orders-btn');
+  const authBtn = document.getElementById('auth-btn');
+  const userWelcome = document.getElementById('user-welcome');
+
+  if (currentUser) {
+    // User is Logged In
+    viewCartBtn.classList.remove('hidden');
+    myOrdersBtn.classList.remove('hidden');
+    
+    // Update Auth button to act as Logout
+    authBtn.textContent = 'Log Out';
+    authBtn.onclick = handleLogout;
+
+    if (userWelcome) {
+      userWelcome.textContent = `Hello, ${currentUser.fullName || 'User'}`;
+      userWelcome.classList.remove('hidden');
+    }
+  } else {
+    // User is Logged Out (Guest)
+    viewCartBtn.classList.add('hidden');
+    myOrdersBtn.classList.add('hidden');
+    
+    authBtn.textContent = 'Sign Up / Login';
+    authBtn.onclick = openSignupModal; // Opens your signup/login modal
+
+    if (userWelcome) {
+      userWelcome.classList.add('hidden');
+    }
+  }
+}
+
+// Logout Handler
+function handleLogout() {
+  localStorage.removeItem('currentUser');
+  alert('You have been logged out.');
+  updateUIForAuthState();
+}
+
+// Run this check immediately when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+  updateUIForAuthState();
+});
+
+
 
 // Initial App Load
 fetchProducts();

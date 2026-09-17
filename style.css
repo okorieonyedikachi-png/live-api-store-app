@@ -368,3 +368,7 @@ body {
 .close-btn:hover {
   color: #000;
 }
+
+.hidden {
+  display: none !important;
+}
