@@ -285,29 +285,44 @@ function updateUIForAuthState() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   const viewCartBtn = document.getElementById('view-cart-btn');
   const myOrdersBtn = document.getElementById('my-orders-btn');
-  const authBtn = document.getElementById('auth-btn');
+    const authBtn = document.getElementById('openAuthBtn'); // Fixed ID to match index.html
   const userWelcome = document.getElementById('user-welcome');
 
   if (currentUser) {
-    // User is Logged In
+    // User is logged in
     viewCartBtn.classList.remove('hidden');
     myOrdersBtn.classList.remove('hidden');
     
-    // Update Auth button to act as Logout
-    authBtn.textContent = 'Log Out';
-    authBtn.onclick = handleLogout;
+    if (authBtn) {
+      authBtn.textContent = 'Log Out';
+      authBtn.onclick = handleLogout;
+    }
 
     if (userWelcome) {
       userWelcome.textContent = `Hello, ${currentUser.fullName || 'User'}`;
       userWelcome.classList.remove('hidden');
     }
   } else {
-    // User is Logged Out (Guest)
+    // User is logged out (Guest)
     viewCartBtn.classList.add('hidden');
     myOrdersBtn.classList.add('hidden');
-    
-    authBtn.textContent = 'Sign Up / Login';
-    authBtn.onclick = openSignupModal; // Opens your signup/login modal
+
+    if (authBtn) {
+      authBtn.textContent = 'Account / Sign Up';
+      authBtn.onclick = () => {
+        const authModal = document.getElementById('authModal');
+        if (authModal) {
+          authModal.classList.remove('hidden');
+          authModal.style.display = 'flex';
+        }
+      };
+    }
+
+    if (userWelcome) {
+      userWelcome.classList.add('hidden');
+    }
+  }
+
 
     if (userWelcome) {
       userWelcome.classList.add('hidden');
