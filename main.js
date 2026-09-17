@@ -283,7 +283,7 @@ if (signupForm) {
 function updateUIForAuthState() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   const viewCartBtn = document.getElementById('viewCartBtn');
-  const myOrdersBtn = document.getElementById('viewOrdersBtn'); // Updated to match your HTML ID
+  const myOrdersBtn = document.getElementById('viewOrdersBtn');
   const authBtn = document.getElementById('openAuthBtn');
   const userWelcome = document.getElementById('user-welcome');
 
@@ -291,7 +291,7 @@ function updateUIForAuthState() {
     // User is logged in
     if (viewCartBtn) viewCartBtn.classList.remove('hidden');
     if (myOrdersBtn) myOrdersBtn.classList.remove('hidden');
-    
+
     if (authBtn) {
       authBtn.textContent = 'Log Out';
       authBtn.onclick = handleLogout;
@@ -301,7 +301,7 @@ function updateUIForAuthState() {
       userWelcome.textContent = `Hello, ${currentUser.fullName || 'User'}`;
       userWelcome.classList.remove('hidden');
     }
-    } else {
+  } else {
     // User is logged out (Guest)
     if (viewCartBtn) viewCartBtn.classList.add('hidden');
     if (myOrdersBtn) myOrdersBtn.classList.add('hidden');
@@ -321,6 +321,7 @@ function updateUIForAuthState() {
       userWelcome.classList.add('hidden');
     }
   }
+}
 
 
 // Logout Handler
