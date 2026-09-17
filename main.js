@@ -215,18 +215,22 @@ const closeAuthBtn = document.getElementById('closeAuthBtn');
 const signupForm = document.getElementById('signupForm');
 
 // Open Modal
-if (openAuthBtn) {
+if (openAuthBtn && authModal) {
   openAuthBtn.addEventListener('click', () => {
-    authModal.classList.add('open');
+    if (typeof showMainAuthView === 'function') {
+      showMainAuthView();
+    }
+    authModal.classList.remove('hidden');
   });
 }
 
 // Close Modal
-if (closeAuthBtn) {
+if (closeAuthBtn && authModal) {
   closeAuthBtn.addEventListener('click', () => {
-    authModal.classList.remove('open');
+    authModal.classList.add('hidden');
   });
 }
+
 
 // Close Modal on Outside Click
 window.addEventListener('click', (e) => {
