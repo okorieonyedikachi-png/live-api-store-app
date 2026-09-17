@@ -280,18 +280,17 @@ if (signupForm) {
   });
 }
 
-// Function to update header based on login status
 function updateUIForAuthState() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  const viewCartBtn = document.getElementById('view-cart-btn');
-  const myOrdersBtn = document.getElementById('my-orders-btn');
-    const authBtn = document.getElementById('openAuthBtn'); // Fixed ID to match index.html
+  const viewCartBtn = document.getElementById('viewCartBtn');
+  const myOrdersBtn = document.getElementById('viewOrdersBtn'); // Updated to match your HTML ID
+  const authBtn = document.getElementById('openAuthBtn');
   const userWelcome = document.getElementById('user-welcome');
 
   if (currentUser) {
     // User is logged in
-    viewCartBtn.classList.remove('hidden');
-    myOrdersBtn.classList.remove('hidden');
+    if (viewCartBtn) viewCartBtn.classList.remove('hidden');
+    if (myOrdersBtn) myOrdersBtn.classList.remove('hidden');
     
     if (authBtn) {
       authBtn.textContent = 'Log Out';
@@ -302,10 +301,10 @@ function updateUIForAuthState() {
       userWelcome.textContent = `Hello, ${currentUser.fullName || 'User'}`;
       userWelcome.classList.remove('hidden');
     }
-  } else {
+    } else {
     // User is logged out (Guest)
-    viewCartBtn.classList.add('hidden');
-    myOrdersBtn.classList.add('hidden');
+    if (viewCartBtn) viewCartBtn.classList.add('hidden');
+    if (myOrdersBtn) myOrdersBtn.classList.add('hidden');
 
     if (authBtn) {
       authBtn.textContent = 'Account / Sign Up';
@@ -317,12 +316,6 @@ function updateUIForAuthState() {
         }
       };
     }
-
-    if (userWelcome) {
-      userWelcome.classList.add('hidden');
-    }
-  }
-
 
     if (userWelcome) {
       userWelcome.classList.add('hidden');
