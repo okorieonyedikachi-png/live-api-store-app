@@ -338,50 +338,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let isLoginMode = false;
 
-document.addEventListener('click', (e) => {
-  // Check if the clicked element is our toggle link
-  if (e.target && e.target.id === 'toggleAuthMode') {
-    e.preventDefault();
+document.addEventListener('click', function (e) {
+  const link = e.target.closest('#toggleAuthMode');
+  if (!link) return;
 
-    isLoginMode = !isLoginMode;
+  e.preventDefault();
 
-    const authTitle = document.getElementById('authTitle');
-    const toggleMsg = document.getElementById('toggleMsg');
-    const toggleLink = document.getElementById('toggleAuthMode');
-    const submitBtn = document.querySelector('#signupForm button[type="submit"]');
-    
-    // Target inputs and their parent containers
-    const nameInput = document.getElementById('signupName');
-    const phoneInput = document.getElementById('signupPhone');
-    const nameGroup = nameInput ? nameInput.closest('.form-group'): null;
-    const phoneGroup = phoneInput ? phoneInput.closest('.form-group') : null;
+  isLoginMode = !isLoginMode;
 
-    if (isLoginMode) {
-      // SWITCH TO LOGIN VIEW
-      if (authTitle) authTitle.textContent = 'Log In';
-      if (submitBtn) submitBtn.textContent = 'Log In';
-      if (toggleMsg) toggleMsg.textContent = "Don't have an account? ";
-      if (toggleLink) toggleLink.textContent = 'Sign Up';
+  const authTitle = document.getElementById('authTitle');
+  const toggleMsg = document.getElementById('toggleMsg');
+  const submitBtn = document.querySelector('#signupForm button[type="submit"]');
 
-      if (nameGroup) nameGroup.style.display = 'none';
-      if (phoneGroup) phoneGroup.style.display = 'none';
-      if (nameInput) nameInput.required = false;
-      if (phoneInput) phoneInput.required = false;
+  const nameField = document.getElementById('signupName')?.closest('.form-group');
+  const phoneField = document.getElementById('signupPhone')?.closest('.form-group');
+  const emailLabel = document.querySelector('label[for="signupEmail"]');
+  const forgotPasswordWrapper = document.getElementById('forgotPasswordWrapper');
 
-    } else {
-      // SWITCH TO SIGN UP VIEW
-      if (authTitle) authTitle.textContent = 'Create an Account';
-      if (submitBtn) submitBtn.textContent = 'Create Account';
-      if (toggleMsg) toggleMsg.textContent = 'Already have an account? ';
-      if (toggleLink) toggleLink.textContent = 'Log In';
+  if (isLoginMode) {
+    // SWITCH TO LOGIN VIEW
+    if (authTitle) authTitle.textContent = 'Log In';
+    if (submitBtn) submitBtn.textContent = 'Log In';
+    if (toggleMsg) toggleMsg.textContent = "Don't have an account? ";
+    link.textContent = 'Sign Up';
 
-      if (nameGroup) nameGroup.style.display = 'block';
-      if (phoneGroup) phoneGroup.style.display = 'block';
-      if (nameInput) nameInput.required = true;
-      if (phoneInput) phoneInput.required = true;
-    }
+    // Hide Name & Phone fields
+    if (nameField) nameField.style.display = 'none';
+    if (phoneField) phoneField.style.display = 'none';
+
+    // Update Email field label to accept Email OR Phone Number
+    if (emailLabel) emailLabel.textContent = 'Email or Phone Number';
+
+    // Show Forgot Password link
+    if (forgotPasswordWrapper) forgotPasswordWrapper.classList.remove('hidden');
+
+  } else {
+    // SWITCH BACK TO SIGN UP VIEW
+    if (authTitle) authTitle.textContent = 'Create an Account';
+    if (submitBtn) submitBtn.textContent = 'Create Account';
+    if (toggleMsg) toggleMsg.textContent = 'Already have an account? ';
+    link.textContent = 'Log In';
+
+    // Show Name & Phone fields
+    if (nameField) nameField.style.display = 'block';
+    if (phoneField) phoneField.style.display = 'block';
+
+    // Restore Email label
+    if (emailLabel) emailLabel.textContent = 'Email Address';
+
+    // Hide Forgot Password link
+    if (forgotPasswordWrapper) forgotPasswordWrapper.classList.add('hidden');
   }
 });
+
 
 // Handle Form Submission
 if (signupForm) {
