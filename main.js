@@ -44,21 +44,37 @@ searchInput.addEventListener('input', (e) => {
   renderProducts(filtered, productGrid, handleAddToCart);
 });
 
-// Category Filter Handler
+// Category Filter Handler (works for both old and new buttons)
+function filterByCategory(category, clickedBtn) {
+  // Remove active class from all category buttons
+  document.querySelectorAll('.filter-btn, .nav-btn').forEach(btn => btn.classList.remove('active'));
+  
+  // Add active class to the clicked button
+  if (clickedBtn) clickedBtn.classList.add('active');
+
+  if (category === 'all') {
+    renderProducts(allProducts, productGrid, handleAddToCart);
+  } else {
+    const filtered = allProducts.filter(p => p.category.toLowerCase() === category.toLowerCase());
+    renderProducts(filtered, productGrid, handleAddToCart);
+  }
+}
+
+// Old category buttons (hidden)
 categoryContainer.addEventListener('click', (e) => {
   if (e.target.classList.contains('filter-btn')) {
-    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-    e.target.classList.add('active');
-
     const category = e.target.getAttribute('data-category');
-    if (category === 'all') {
-      renderProducts(allProducts, productGrid, handleAddToCart);
-    } else {
-      const filtered = allProducts.filter(p => p.category.toLowerCase() === category.toLowerCase());
-      renderProducts(filtered, productGrid, handleAddToCart);
-    }
+    filterByCategory(category, e.target);
   }
 });
+
+// New header category buttons
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const category = btn.getAttribute('data-category');
+    filterByCategory(category, btn);
+  });
+});s
 
 // Shopping Cart Modal Controls
 viewCartBtn.addEventListener('click', () => cartModal.classList.add('open'));
