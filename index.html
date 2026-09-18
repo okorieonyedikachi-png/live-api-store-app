@@ -55,21 +55,19 @@
 
   <!-- Controls Container -->
   <main class="container">
-    <div class="controls-wrapper">
-      <!-- Search Input -->
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Search products by title...">
-      </div>
-
-      <!-- Filter Buttons -->
-      <div class="category-buttons" id="categoryContainer">
-        <button class="filter-btn active" data-category="all">All Products</button>
-        <button class="filter-btn" data-category="electronics">Electronics</button>
-        <button class="filter-btn" data-category="jewelery">Jewelry</button>
-        <button class="filter-btn" data-category="men's clothing">Men's Clothing</button>
-        <button class="filter-btn" data-category="women's clothing">Women's Clothing</button>
-      </div>
-    </div>
+    <!-- Hidden old controls (needed for JavaScript) -->
+<div class="controls-wrapper" style="display: none;">
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search products by title...">
+  </div>
+  <div class="category-buttons" id="categoryContainer">
+    <button class="filter-btn active" data-category="all">All Products</button>
+    <button class="filter-btn" data-category="electronics">Electronics</button>
+    <button class="filter-btn" data-category="jewelery">Jewelry</button>
+    <button class="filter-btn" data-category="men's clothing">Men's Clothing</button>
+    <button class="filter-btn" data-category="women's clothing">Women's Clothing</button>
+  </div>
+</div>
 
         <!-- Order Tracking Section -->
     <div class="tracking-container" style="text-align: center; margin: 20px 0;">
