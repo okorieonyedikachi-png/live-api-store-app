@@ -476,31 +476,44 @@ if (toggleAuthMode) {
     e.preventDefault();
     isLoginMode = !isLoginMode;
 
+    // Define elements inside the listener so they never throw ReferenceErrors
+    const authTitle = document.getElementById('authTitle');
+    const toggleMsg = document.getElementById('toggleMsg');
+    const submitBtn = document.querySelector('#signupForm button[type="submit"]');
+    const nameInput = document.getElementById('signupName');
+    const phoneInput = document.getElementById('signupPhone');
+    const nameGroup = nameInput ? nameInput.closest('.form-group') : null;
+    const phoneGroup = phoneInput ? phoneInput.closest('.form-group') : null;
+    const forgotPasswordWrapper = document.getElementById('forgotPasswordWrapper');
+
     if (isLoginMode) {
-      authTitle.textContent = 'Log In';
-      nameGroup.style.display = 'none';
-      phoneGroup.style.display = 'none';
-      submitBtn.textContent = 'Log In';
-      toggleMsg.textContent = "Don't have an account?";
-      toggleAuthMode.textContent = 'Sign Up';
-      forgotPasswordWrapper.classList.remove('hidden');
+      if (authTitle) authTitle.textContent = 'Log In';
+      if (submitBtn) submitBtn.textContent = 'Log In';
+      if (toggleMsg) toggleMsg.textContent = "Don't have an account? ";
+      if (toggleAuthMode) toggleAuthMode.textContent = 'Sign Up';
 
-      document.getElementById('signupName').required = false;
-      document.getElementById('signupPhone').required = false;
+      if (nameGroup) nameGroup.style.display = 'none';
+      if (phoneGroup) phoneGroup.style.display = 'none';
+      if (forgotPasswordWrapper) forgotPasswordWrapper.classList.remove('hidden');
+
+      if (nameInput) nameInput.required = false;
+      if (phoneInput) phoneInput.required = false;
     } else {
-      authTitle.textContent = 'Create an Account';
-      nameGroup.style.display = 'block';
-      phoneGroup.style.display = 'block';
-      submitBtn.textContent = 'Create Account';
-      toggleMsg.textContent = 'Already have an account?';
-      toggleAuthMode.textContent = 'Log In';
-      forgotPasswordWrapper.classList.add('hidden');
+      if (authTitle) authTitle.textContent = 'Create an Account';
+      if (submitBtn) submitBtn.textContent = 'Create Account';
+      if (toggleMsg) toggleMsg.textContent = 'Already have an account? ';
+      if (toggleAuthMode) toggleAuthMode.textContent = 'Log In';
 
-      document.getElementById('signupName').required = true;
-      document.getElementById('signupPhone').required = true;
+      if (nameGroup) nameGroup.style.display = 'block';
+      if (phoneGroup) phoneGroup.style.display = 'block';
+      if (forgotPasswordWrapper) forgotPasswordWrapper.classList.add('hidden');
+
+      if (nameInput) nameInput.required = true;
+      if (phoneInput) phoneInput.required = true;
     }
   });
 }
+
 
 // 1. Open Forgot Password Step 1
 if (forgotPasswordLink) {
