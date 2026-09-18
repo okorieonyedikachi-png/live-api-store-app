@@ -9,17 +9,49 @@
 <body>
 
   <!-- Top Header Bar -->
-  <header class="navbar">
-    <div class="logo">The Daily Outlet</div>
-    <div class="cart-summary">
-      <span>Cart: <strong id="cartCount">0</strong> items</span>
-      <span class="divider">|</span>
-      <span>Total: <strong id="cartTotal">$0.00</strong></span>
-      <button id="viewCartBtn" class="btn btn-primary hidden">View Cart</button>
-      <button id="viewOrdersBtn" class="btn btn-primary hidden">My Orders</button>
-      <button id="openAuthBtn" class="btn-primary" style="white-space: nowrap; width: auto;">Account / Sign Up</button>
+ <!-- Modern Header -->
+<header class="navbar">
+  <div class="nav-left">
+    <div class="logo">
+      <span class="logo-icon">🛒</span>
+      <span class="logo-text">The Daily Outlet</span>
     </div>
-  </header>
+  </div>
+
+  <nav class="nav-center">
+    <button class="nav-btn active" data-category="all">All Products</button>
+    <button class="nav-btn" data-category="electronics">Electronics</button>
+    <button class="nav-btn" data-category="jewelery">Jewelry</button>
+    <button class="nav-btn" data-category="men's clothing">Men's Clothing</button>
+    <button class="nav-btn" data-category="women's clothing">Women's Clothing</button>
+  </nav>
+
+  <div class="nav-right">
+    <button class="icon-btn" title="Search">🔍</button>
+    <button class="icon-btn" id="openAuthBtn" title="Account / Login">👤</button>
+    <button class="icon-btn" id="viewCartBtn" title="Cart">
+      🛒 <span id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-tagline">TRENDY • AFFORDABLE • RELIABLE</p>
+    <h1>The Best Products<br><span>for Your Everyday Life</span></h1>
+    <p class="hero-desc">Fashion, electronics, accessories and more — all in one place. Shop smart. Live better.</p>
+    <button class="shop-now-btn" onclick="document.getElementById('productGrid').scrollIntoView({behavior: 'smooth'})">
+      Shop Now →
+    </button>
+
+    <div class="trust-badges">
+      <div class="badge">🚚 Fast & Reliable Delivery</div>
+      <div class="badge">🔒 Secure Payments</div>
+      <div class="badge">🎧 24/7 Customer Support</div>
+    </div>
+  </div>
+</section>
 
   <!-- Controls Container -->
   <main class="container">
