@@ -471,6 +471,7 @@ function showMainAuthView() {
 }
 
 // Update Mode Toggle to show/hide Forgot Password link
+const toggleAuthMode = document.getElementById('toggleAuthMode');
 if (toggleAuthMode) {
   toggleAuthMode.addEventListener('click', (e) => {
     e.preventDefault();
