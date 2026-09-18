@@ -372,3 +372,22 @@ body {
 .hidden {
   display: none !important;
 }
+
+/* Dark Mode / Glassmorphism Background */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  color: #333333; /* Keeps text readable on white cards */
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background-attachment: fixed;
+}
+
+/* Give your modal box a sleek glass look */
+.modal-box {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
