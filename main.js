@@ -470,50 +470,51 @@ function showMainAuthView() {
   authMainView.classList.remove('hidden');
 }
 
-// Update Mode Toggle to show/hide Forgot Password link
-const toggleAuthMode = document.getElementById('toggleAuthMode');
-if (toggleAuthMode) {
-  toggleAuthMode.addEventListener('click', (e) => {
-    e.preventDefault();
-    isLoginMode = !isLoginMode;
+// Global delegate click handler for Auth Toggle
+document.addEventListener('click', function (e) {
+  const toggleLink = e.target.closest('#toggleAuthMode');
+  if (!toggleLink) return;
 
-    // Define elements inside the listener so they never throw ReferenceErrors
-    const authTitle = document.getElementById('authTitle');
-    const toggleMsg = document.getElementById('toggleMsg');
-    const submitBtn = document.querySelector('#signupForm button[type="submit"]');
-    const nameInput = document.getElementById('signupName');
-    const phoneInput = document.getElementById('signupPhone');
-    const nameGroup = nameInput ? nameInput.closest('.form-group') : null;
-    const phoneGroup = phoneInput ? phoneInput.closest('.form-group') : null;
-    const forgotPasswordWrapper = document.getElementById('forgotPasswordWrapper');
+  e.preventDefault();
 
-    if (isLoginMode) {
-      if (authTitle) authTitle.textContent = 'Log In';
-      if (submitBtn) submitBtn.textContent = 'Log In';
-      if (toggleMsg) toggleMsg.textContent = "Don't have an account? ";
-      if (toggleAuthMode) toggleAuthMode.textContent = 'Sign Up';
+  isLoginMode = !isLoginMode;
 
-      if (nameGroup) nameGroup.style.display = 'none';
-      if (phoneGroup) phoneGroup.style.display = 'none';
-      if (forgotPasswordWrapper) forgotPasswordWrapper.classList.remove('hidden');
+  const authTitle = document.getElementById('authTitle');
+  const toggleMsg = document.getElementById('toggleMsg');
+  const submitBtn = document.querySelector('#signupForm button[type="submit"]');
+  const nameInput = document.getElementById('signupName');
+  const phoneInput = document.getElementById('signupPhone');
+  const nameGroup = nameInput ? nameInput.closest('.form-group') : null;
+  const phoneGroup = phoneInput ? phoneInput.closest('.form-group') : null;
+  const forgotPasswordWrapper = document.getElementById('forgotPasswordWrapper');
 
-      if (nameInput) nameInput.required = false;
-      if (phoneInput) phoneInput.required = false;
-    } else {
-      if (authTitle) authTitle.textContent = 'Create an Account';
-      if (submitBtn) submitBtn.textContent = 'Create Account';
-      if (toggleMsg) toggleMsg.textContent = 'Already have an account? ';
-      if (toggleAuthMode) toggleAuthMode.textContent = 'Log In';
+  if (isLoginMode) {
+    if (authTitle) authTitle.textContent = 'Log In';
+    if (submitBtn) submitBtn.textContent = 'Log In';
+    if (toggleMsg) toggleMsg.textContent = "Don't have an account? ";
+    toggleLink.textContent = 'Sign Up';
 
-      if (nameGroup) nameGroup.style.display = 'block';
-      if (phoneGroup) phoneGroup.style.display = 'block';
-      if (forgotPasswordWrapper) forgotPasswordWrapper.classList.add('hidden');
+    if (nameGroup) nameGroup.style.display = 'none';
+    if (phoneGroup) phoneGroup.style.display = 'none';
+    if (forgotPasswordWrapper) forgotPasswordWrapper.classList.remove('hidden');
 
-      if (nameInput) nameInput.required = true;
-      if (phoneInput) phoneInput.required = true;
-    }
-  });
-}
+    if (nameInput) nameInput.required = false;
+    if (phoneInput) phoneInput.required = false;
+  } else {
+    if (authTitle) authTitle.textContent = 'Create an Account';
+    if (submitBtn) submitBtn.textContent = 'Create Account';
+    if (toggleMsg) toggleMsg.textContent = 'Already have an account? ';
+    toggleLink.textContent = 'Log In';
+
+    if (nameGroup) nameGroup.style.display = 'block';
+    if (phoneGroup) phoneGroup.style.display = 'block';
+    if (forgotPasswordWrapper) forgotPasswordWrapper.classList.add('hidden');
+
+    if (nameInput) nameInput.required = true;
+    if (phoneInput) phoneInput.required = true;
+  }
+});
+
 
 
 // 1. Open Forgot Password Step 1
