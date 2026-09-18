@@ -338,47 +338,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let isLoginMode = false;
 
-// Target your existing elements
-const toggleAuthMode = document.getElementById('toggleAuthMode');
-const toggleMsg = document.getElementById('toggleMsg');
-const authTitle = document.getElementById('authTitle');
-
-// Group the Name & Phone fields so we can hide them on Login
-const nameGroup = document.getElementById('signupName').parentElement;
-const phoneGroup = document.getElementById('signupPhone').parentElement;
-const submitBtn = signupForm.querySelector('button[type="submit"]');
-
-// Toggle between Signup and Login
-if (toggleAuthMode) {
-  toggleAuthMode.addEventListener('click', (e) => {
+document.addEventListener('click', (e) => {
+  // Check if the clicked element is our toggle link
+  if (e.target && e.target.id === 'toggleAuthMode') {
     e.preventDefault();
+
     isLoginMode = !isLoginMode;
 
-    if (isLoginMode) {
-      authTitle.textContent = 'Log In';
-      nameGroup.style.display = 'none';
-      phoneGroup.style.display = 'none';
-      submitBtn.textContent = 'Log In';
-      toggleMsg.textContent = "Don't have an account?";
-      toggleAuthMode.textContent = 'Sign Up';
-      
-      // Remove required attribute for hidden fields
-      document.getElementById('signupName').required = false;
-      document.getElementById('signupPhone').required = false;
-    } else {
-      authTitle.textContent = 'Create an Account';
-      nameGroup.style.display = 'block';
-      phoneGroup.style.display = 'block';
-      submitBtn.textContent = 'Create Account';
-      toggleMsg.textContent = 'Already have an account?';
-      toggleAuthMode.textContent = 'Log In';
+    const authTitle = document.getElementById('authTitle');
+    const toggleMsg = document.getElementById('toggleMsg');
+    const toggleLink = document.getElementById('toggleAuthMode');
+    const submitBtn = document.querySelector('#signupForm button[type="submit"]');
+    
+    // Target inputs and their parent containers
+    const nameInput = document.getElementById('signupName');
+    const phoneInput = document.getElementById('signupPhone');
+    const nameGroup = nameInput ? nameInput.parentElement : null;
+    const phoneGroup = phoneInput ? phoneInput.parentElement : null;
 
-      // Restore required attribute
-      document.getElementById('signupName').required = true;
-      document.getElementById('signupPhone').required = true;
+    if (isLoginMode) {
+      // SWITCH TO LOGIN VIEW
+      if (authTitle) authTitle.textContent = 'Log In';
+      if (submitBtn) submitBtn.textContent = 'Log In';
+      if (toggleMsg) toggleMsg.textContent = "Don't have an account? ";
+      if (toggleLink) toggleLink.textContent = 'Sign Up';
+
+      if (nameGroup) nameGroup.style.display = 'none';
+      if (phoneGroup) phoneGroup.style.display = 'none';
+      if (nameInput) nameInput.required = false;
+      if (phoneInput) phoneInput.required = false;
+
+    } else {
+      // SWITCH TO SIGN UP VIEW
+      if (authTitle) authTitle.textContent = 'Create an Account';
+      if (submitBtn) submitBtn.textContent = 'Create Account';
+      if (toggleMsg) toggleMsg.textContent = 'Already have an account? ';
+      if (toggleLink) toggleLink.textContent = 'Log In';
+
+      if (nameGroup) nameGroup.style.display = 'block';
+      if (phoneGroup) phoneGroup.style.display = 'block';
+      if (nameInput) nameInput.required = true;
+      if (phoneInput) phoneInput.required = true;
     }
-  });
-}
+  }
+});
 
 // Handle Form Submission
 if (signupForm) {
