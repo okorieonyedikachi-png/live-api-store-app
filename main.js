@@ -353,8 +353,8 @@ document.addEventListener('click', (e) => {
     // Target inputs and their parent containers
     const nameInput = document.getElementById('signupName');
     const phoneInput = document.getElementById('signupPhone');
-    const nameGroup = nameInput ? nameInput.parentElement : null;
-    const phoneGroup = phoneInput ? phoneInput.parentElement : null;
+    const nameGroup = nameInput ? nameInput.closest('.form-group'): null;
+    const phoneGroup = phoneInput ? phoneInput.closest('.form-group') : null;
 
     if (isLoginMode) {
       // SWITCH TO LOGIN VIEW
