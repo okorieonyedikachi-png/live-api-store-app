@@ -74,7 +74,7 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
     const category = btn.getAttribute('data-category');
     filterByCategory(category, btn);
   });
-});s
+});
 
 // Shopping Cart Modal Controls
 viewCartBtn.addEventListener('click', () => cartModal.classList.add('open'));
