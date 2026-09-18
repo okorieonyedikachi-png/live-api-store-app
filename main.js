@@ -470,50 +470,21 @@ function showMainAuthView() {
   authMainView.classList.remove('hidden');
 }
 
-// Global delegate click handler for Auth Toggle
+// Switch views inside modal
 document.addEventListener('click', function (e) {
-  const toggleLink = e.target.closest('#toggleAuthMode');
-  if (!toggleLink) return;
+  if (e.target.matches('#goToLogin')) {
+    e.preventDefault();
+    document.getElementById('signupView').classList.add('hidden');
+    document.getElementById('loginView').classList.remove('hidden');
+  }
 
-  e.preventDefault();
-
-  isLoginMode = !isLoginMode;
-
-  const authTitle = document.getElementById('authTitle');
-  const toggleMsg = document.getElementById('toggleMsg');
-  const submitBtn = document.querySelector('#signupForm button[type="submit"]');
-  const nameInput = document.getElementById('signupName');
-  const phoneInput = document.getElementById('signupPhone');
-  const nameGroup = nameInput ? nameInput.closest('.form-group') : null;
-  const phoneGroup = phoneInput ? phoneInput.closest('.form-group') : null;
-  const forgotPasswordWrapper = document.getElementById('forgotPasswordWrapper');
-
-  if (isLoginMode) {
-    if (authTitle) authTitle.textContent = 'Log In';
-    if (submitBtn) submitBtn.textContent = 'Log In';
-    if (toggleMsg) toggleMsg.textContent = "Don't have an account? ";
-    toggleLink.textContent = 'Sign Up';
-
-    if (nameGroup) nameGroup.style.display = 'none';
-    if (phoneGroup) phoneGroup.style.display = 'none';
-    if (forgotPasswordWrapper) forgotPasswordWrapper.classList.remove('hidden');
-
-    if (nameInput) nameInput.required = false;
-    if (phoneInput) phoneInput.required = false;
-  } else {
-    if (authTitle) authTitle.textContent = 'Create an Account';
-    if (submitBtn) submitBtn.textContent = 'Create Account';
-    if (toggleMsg) toggleMsg.textContent = 'Already have an account? ';
-    toggleLink.textContent = 'Log In';
-
-    if (nameGroup) nameGroup.style.display = 'block';
-    if (phoneGroup) phoneGroup.style.display = 'block';
-    if (forgotPasswordWrapper) forgotPasswordWrapper.classList.add('hidden');
-
-    if (nameInput) nameInput.required = true;
-    if (phoneInput) phoneInput.required = true;
+  if (e.target.matches('#goToSignup')) {
+    e.preventDefault();
+    document.getElementById('loginView').classList.add('hidden');
+    document.getElementById('signupView').classList.remove('hidden');
   }
 });
+
 
 
 

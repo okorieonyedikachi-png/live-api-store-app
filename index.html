@@ -130,45 +130,57 @@
   <div class="modal-box" style="max-width: 400px; max-height: 85vh; overflow-y: auto; text-align: center; position: relative;">
     <span id="closeAuthBtn" class="close-btn" style="float: right; cursor: pointer; font-size: 20px;">&times;</span>
 
-    <!-- 1. LOGIN / SIGNUP VIEW -->
-    <div id="authMainView">
-      <h2 id="authTitle" style="margin-bottom: 20px;">Create an Account</h2>
-      
+        <!-- 1. DEDICATED SIGN UP VIEW -->
+    <div id="signupView">
+      <h2 style="margin-bottom: 20px;">Create an Account</h2>
       <form id="signupForm" style="display: flex; flex-direction: column; gap: 12px; text-align: left;">
         <div class="form-group">
           <label for="signupName">Full Name</label>
           <input type="text" id="signupName" placeholder="John Doe" required style="width: 100%; padding: 8px;">
         </div>
-
         <div class="form-group">
           <label for="signupEmail">Email Address</label>
           <input type="email" id="signupEmail" placeholder="yourname@example.com" required style="width: 100%; padding: 8px;">
         </div>
-
         <div class="form-group">
           <label for="signupPhone">Phone Number</label>
           <input type="tel" id="signupPhone" placeholder="+234 800 000 0000" required style="width: 100%; padding: 8px;">
         </div>
-
         <div class="form-group">
           <label for="signupPassword">Password</label>
-          <input type="password" id="signupPassword" placeholder="At least 8 chars, 1 uppercase & 1 number" required style="width: 100%; padding: 8px;">
+          <input type="password" id="signupPassword" placeholder="At least 8 chars" required style="width: 100%; padding: 8px;">
         </div>
-
-        <!-- Forgot password link (Only visible in Log In mode) -->
-        <p id="forgotPasswordWrapper" class="hidden" style="text-align: right; margin: -4px 0 8px 0;">
-          <a href="#" id="forgotPasswordLink" style="color: #007bff; text-decoration: underline; font-size: 13px;">Forgot Password?</a>
-        </p>
-
-        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">Create Account</button>
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 10px;">Create Account</button>
       </form>
-
-      <!-- Single clean toggle paragraph -->
       <p style="margin-top: 15px; text-align: center;">
-        <span id="toggleMsg">Already have an account?</span> 
-        <a href="#" id="toggleAuthMode" style="color: #007bff; text-decoration: underline;">Log In</a>
+        <span>Already have an account? </span>
+        <a href="#" id="goToLogin" style="color: #007bff; text-decoration: underline;">Log In</a>
       </p>
     </div>
+
+    <!-- 2. DEDICATED LOG IN VIEW -->
+    <div id="loginView" class="hidden">
+      <h2 style="margin-bottom: 20px;">Log In</h2>
+      <form id="loginForm" style="display: flex; flex-direction: column; gap: 12px; text-align: left;">
+        <div class="form-group">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" placeholder="yourname@example.com" required style="width: 100%; padding: 8px;">
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="Enter your password" required style="width: 100%; padding: 8px;">
+        </div>
+        <p style="text-align: right; margin: -4px 0 8px;">
+          <a href="#" id="forgotPasswordLink" style="color: #007bff; text-decoration: underline; font-size: 13px;">Forgot Password?</a>
+        </p>
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 10px;">Log In</button>
+      </form>
+      <p style="margin-top: 15px; text-align: center;">
+        <span>Don't have an account? </span>
+        <a href="#" id="goToSignup" style="color: #007bff; text-decoration: underline;">Sign Up</a>
+      </p>
+    </div>
+
 
     <!-- 2. FORGOT PASSWORD: STEP 1 (EMAIL) -->
     <div id="resetStep1" class="hidden" style="text-align: left;">
