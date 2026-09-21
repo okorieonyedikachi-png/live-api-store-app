@@ -255,46 +255,7 @@ window.addEventListener('click', (e) => {
   }
 });
 
-// Handle Signup Submission
-if (signupForm) {
-  signupForm.addEventListener('submit', (e) => {
-    e.preventDefault();
 
-    const name = document.getElementById('signupName').value;
-    const email = document.getElementById('signupEmail').value;
-    const phone = document.getElementById('signupPhone').value;
-    const password = document.getElementById('signupPassword').value;
-
-    // Password Validation: 8+ chars, 1 uppercase, 1 number
-    const passwordPattern = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
-    if (!passwordPattern.test(password)) {
-      alert('Password must be at least 8 characters long, contain at least one uppercase letter, and at least one number.');
-      return;
-    }
-
-    const newUser = { name, email, phone, password };
-
-    // Get existing users or set empty array
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    
-    // Check if email already exists
-    const userExists = users.some(user => user.email === email);
-    if (userExists) {
-      alert('An account with this email already exists!');
-      return;
-    }
-
-    // Save new user & set logged-in session
-    users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(users));
-    localStorage.setItem('currentUser', JSON.stringify(newUser));
-
-    alert(`Account created successfully! Welcome, ${name}.`);
-    
-    signupForm.reset();
-    authModal.classList.remove('open');
-  });
-}
 
 function updateUIForAuthState() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
