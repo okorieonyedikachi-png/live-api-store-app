@@ -309,7 +309,7 @@ function updateUIForAuthState() {
     if (myOrdersBtn) myOrdersBtn.classList.remove('hidden');
 
     if (authBtn) {
-      authBtn.textContent = 'Log Out';
+      authBtn.textContent = '👤';
       authBtn.onclick = handleLogout;
     }
 
@@ -600,3 +600,47 @@ document.getElementById('successLoginBtn')?.addEventListener('click', () => {
 // Initial App Load
 fetchProducts();
 updateCartUI();
+
+// ========== PROFILE DROPDOWN ==========
+const profileDropdown = document.getElementById('profileDropdown');
+const logoutBtn = document.getElementById('logoutBtn');
+const myOrdersBtn = document.getElementById('myOrdersBtn');
+
+// Toggle dropdown when profile icon is clicked (only when logged in)
+if (openAuthBtn) {
+  openAuthBtn.addEventListener('click', (e) => {
+    // Only show dropdown if user is logged in (button shows 👤)
+    if (openAuthBtn.textContent.trim() === '👤') {
+      e.stopPropagation(); // Prevent immediate close
+      profileDropdown.classList.toggle('hidden');
+    }
+  });
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+  if (profileDropdown && !profileDropdown.contains(e.target) && e.target !== openAuthBtn) {
+    profileDropdown.classList.add('hidden');
+  }
+});
+
+// Log Out button
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', () => {
+    profileDropdown.classList.add('hidden');
+    handleLogout(); // This function already exists in your code
+  });
+}
+
+// My Orders button
+if (myOrdersBtn) {
+  myOrdersBtn.addEventListener('click', () => {
+    profileDropdown.classList.add('hidden');
+    // Open the orders modal (you already have this)
+    const ordersModal = document.getElementById('ordersModal');
+    if (ordersModal) {
+      ordersModal.classList.add('open');
+      // If you have a function that loads orders, call it here
+    }
+  });
+}
