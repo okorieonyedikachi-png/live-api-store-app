@@ -310,7 +310,6 @@ function updateUIForAuthState() {
 
     if (authBtn) {
       authBtn.textContent = '👤';
-      authBtn.onclick = handleLogout;
     }
 
     if (userWelcome) {
