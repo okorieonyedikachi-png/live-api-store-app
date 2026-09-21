@@ -635,11 +635,16 @@ if (logoutBtn) {
 if (myOrdersBtn) {
   myOrdersBtn.addEventListener('click', () => {
     profileDropdown.classList.add('hidden');
-    // Open the orders modal (you already have this)
+    
+    // Load the orders first
+    if (typeof renderOrderHistory === 'function') {
+      renderOrderHistory();
+    }
+    
+    // Then open the modal
     const ordersModal = document.getElementById('ordersModal');
     if (ordersModal) {
       ordersModal.classList.add('open');
-      // If you have a function that loads orders, call it here
     }
   });
 }
