@@ -182,11 +182,9 @@ function renderOrderHistory() {
     return;
   }
 
-  // Only show orders that belong to the current user
+  // Only show orders that belong to the current user (by email)
   const userOrders = orders.filter(order => {
-    return order.customer && 
-           (order.customer.email === currentUser.email || 
-            order.customer.name === currentUser.fullName);
+    return order.customer && order.customer.email === currentUser.email;
   });
 
   if (userOrders.length === 0) {
