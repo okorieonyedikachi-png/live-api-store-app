@@ -384,7 +384,10 @@ if (signupForm) {
       if (userMatch) {
         localStorage.setItem('currentUser', JSON.stringify(userMatch));
         alert(`Welcome back, ${userMatch.fullName}!`);
-        document.getElementById('authModal').classList.add('hidden');
+        const modal = document.getElementById('authModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('open');
+        modal.style.display = 'none';
         updateUIForAuthState();
       } else {
         alert('Invalid email or password. Please try again.');
@@ -413,7 +416,10 @@ if (signupForm) {
       localStorage.setItem('currentUser', JSON.stringify(newUser));
 
       alert('Account created successfully!');
-      document.getElementById('authModal').classList.add('hidden');
+      const modal = document.getElementById('authModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('open');
+      modal.style.display = 'none';
       updateUIForAuthState();
     }
   });
