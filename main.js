@@ -175,14 +175,26 @@ const ordersList = document.getElementById('ordersList');
 // Helper to render order history
 function renderOrderHistory() {
   const orders = JSON.parse(localStorage.getItem('orders')) || [];
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-  if (orders.length === 0) {
+  if (!currentUser) {
+    ordersList.innerHTML = `<p style="text-align: center; color: #666;">Please log in to see your orders.</p>`;
+    return;
+  }
+
+  // Only show orders that belong to the current user
+  const userOrders = orders.filter(order => {
+    return order.customer && 
+           (order.customer.email === currentUser.email || 
+            order.customer.name === currentUser.fullName);
+  });
+
+  if (userOrders.length === 0) {
     ordersList.innerHTML = `<p style="text-align: center; color: #666;">No orders placed yet.</p>`;
     return;
   }
 
-  ordersList.innerHTML = orders.map(order => {
-    // Calculate live status based on timestamp
+  ordersList.innerHTML = userOrders.map(order => {
     const elapsedMinutes = (Date.now() - order.timestamp) / (1000 * 60);
     let status = "Processing ⏳";
     if (elapsedMinutes >= 5) {
@@ -195,13 +207,12 @@ function renderOrderHistory() {
       <div style="border: 1px solid #ddd; padding: 12px; margin-bottom: 10px; border-radius: 6px;">
         <p><strong>Order ID:</strong> ${order.id}</p>
         <p><strong>Date:</strong> ${new Date(order.timestamp).toLocaleString()}</p>
-        <p><strong>Total:</strong> $${order.total.toFixed(2)}</p>
+        <p><strong>Total:</strong> \]{order.total.toFixed(2)}</p>
         <p><strong>Status:</strong> <span style="color: #007bff; font-weight: bold;">${status}</span></p>
       </div>
     `;
   }).join('');
 }
-
 // Open Orders Modal
 if (viewOrdersBtn) {
   viewOrdersBtn.addEventListener('click', () => {
