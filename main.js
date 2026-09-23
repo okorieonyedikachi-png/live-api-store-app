@@ -271,6 +271,7 @@ function updateUIForAuthState() {
 
     if (authBtn) {
       authBtn.textContent = '👤';
+      authBtn.onclick = null;   // Add this line
     }
 
     if (userWelcome) {
