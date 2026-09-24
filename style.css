@@ -760,3 +760,34 @@ body {
     font-size: 1.2rem;
   }
 }
+
+/* Mobile Product Grid - 2 columns */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .product-card {
+    border-radius: 10px;
+  }
+
+  .img-container {
+    height: 160px !important;
+    padding: 10px;
+  }
+
+  .card-title {
+    font-size: 0.85rem;
+    height: 2.4em;
+  }
+
+  .card-price {
+    font-size: 1rem;
+  }
+
+  .add-btn {
+    padding: 0.6rem;
+    font-size: 0.85rem;
+  }
+}
