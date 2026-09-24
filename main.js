@@ -625,3 +625,18 @@ if (myOrdersBtn) {
     }
   });
 }
+// ========== SEARCH ICON ==========
+const searchIconBtn = document.getElementById('searchIconBtn');
+
+if (searchIconBtn) {
+  searchIconBtn.addEventListener('click', () => {
+    const term = prompt('Search products by name:');
+    
+    if (term !== null && term.trim() !== '') {
+      const filtered = allProducts.filter(p => 
+        p.title.toLowerCase().includes(term.toLowerCase().trim())
+      );
+      renderProducts(filtered, productGrid, handleAddToCart);
+    }
+  });
+}
