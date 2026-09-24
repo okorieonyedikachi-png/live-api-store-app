@@ -714,3 +714,49 @@ body {
 .header-search.hidden {
   display: none;
 }
+/* ========== MOBILE QUICK FIX ========== */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.8rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .nav-left .logo {
+    font-size: 1.1rem;
+  }
+
+  .logo-text {
+    font-size: 1.1rem;
+  }
+
+  .nav-center {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 6px;
+    gap: 0.4rem;
+    justify-content: flex-start;
+  }
+
+  .nav-btn {
+    padding: 0.4rem 0.9rem;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .nav-right {
+    margin-left: auto;
+    gap: 0.6rem;
+  }
+
+  .icon-btn {
+    font-size: 1.15rem;
+  }
+
+  /* Hide the long "Account / Sign Up" text on mobile if it appears */
+  #openAuthBtn {
+    font-size: 1.2rem;
+  }
+}
