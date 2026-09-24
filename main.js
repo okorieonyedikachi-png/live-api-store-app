@@ -625,18 +625,34 @@ if (myOrdersBtn) {
     }
   });
 }
-// ========== SEARCH ICON ==========
+// ========== SEARCH ICON (Better Version) ==========
 const searchIconBtn = document.getElementById('searchIconBtn');
+const searchBox = document.getElementById('searchBox');
+const headerSearchInput = document.getElementById('headerSearchInput');
 
-if (searchIconBtn) {
-  searchIconBtn.addEventListener('click', () => {
-    const term = prompt('Search products by name:');
-    
-    if (term !== null && term.trim() !== '') {
-      const filtered = allProducts.filter(p => 
-        p.title.toLowerCase().includes(term.toLowerCase().trim())
-      );
-      renderProducts(filtered, productGrid, handleAddToCart);
+if (searchIconBtn && searchBox && headerSearchInput) {
+  // Toggle search box when clicking the icon
+  searchIconBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    searchBox.classList.toggle('hidden');
+    if (!searchBox.classList.contains('hidden')) {
+      headerSearchInput.focus();
+    }
+  });
+
+  // Live search as user types
+  headerSearchInput.addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase().trim();
+    const filtered = allProducts.filter(p => 
+      p.title.toLowerCase().includes(term)
+    );
+    renderProducts(filtered, productGrid, handleAddToCart);
+  });
+
+  // Close search box when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!searchBox.contains(e.target) && e.target !== searchIconBtn) {
+      searchBox.classList.add('hidden');
     }
   });
 }
