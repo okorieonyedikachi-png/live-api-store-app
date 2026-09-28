@@ -50,30 +50,36 @@ function renderCartModalItems() {
   }
 
   cart.forEach(item => {
-    const itemEl = document.createElement('div');
-    itemEl.className = 'cart-item';
-    itemEl.innerHTML = `
-      <div class="cart-item-info">
-        <h4>${item.title}</h4>
-        <p>$${item.price.toFixed(2)} x ${item.quantity}</p>
-      </div>
-      <div class="cart-item-controls">
-        <button class="btn-qty dec-btn" data-id="${item.id}">-</button>
-        <span>${item.quantity}</span>
-        <button class="btn-qty inc-btn" data-id="${item.id}">+</button>
-      </div>
-    `;
+  const itemEl = document.createElement('div');
+  itemEl.className = 'cart-item';
+  itemEl.innerHTML = `
+    <div class="cart-item-info">
+      <h4>${item.title}</h4>
+      <p class="cart-item-price"> \]{item.price.toFixed(2)}</p>
+    </div>
+    <div class="cart-item-controls">
+      <button class="btn-qty dec-btn" data-id="${item.id}">−</button>
+      <span class="qty-number">${item.quantity}</span>
+      <button class="btn-qty inc-btn" data-id="${item.id}">+</button>
+      <button class="btn-remove" data-id="${item.id}">Remove</button>
+    </div>
+  `;
 
-    itemEl.querySelector('.dec-btn').addEventListener('click', () => {
-      updateQuantity(item.id, -1);
-      updateCartUI();
-    });
-
-    itemEl.querySelector('.inc-btn').addEventListener('click', () => {
-      updateQuantity(item.id, 1);
-      updateCartUI();
-    });
-
-    cartContainer.appendChild(itemEl);
+  itemEl.querySelector('.dec-btn').addEventListener('click', () => {
+    updateQuantity(item.id, -1);
+    updateCartUI();
   });
+
+  itemEl.querySelector('.inc-btn').addEventListener('click', () => {
+    updateQuantity(item.id, 1);
+    updateCartUI();
+  });
+
+  itemEl.querySelector('.btn-remove').addEventListener('click', () => {
+    removeFromCart(item.id);
+    updateCartUI();
+  });
+
+  cartContainer.appendChild(itemEl);
+});
 }
