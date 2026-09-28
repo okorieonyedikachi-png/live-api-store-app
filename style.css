@@ -913,3 +913,22 @@ body {
 .btn-remove:hover {
   background: #fecaca;
 }
+
+/* Mobile cart fix */
+@media (max-width: 600px) {
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .cart-item-controls {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .btn-remove {
+    margin-left: 0;
+  }
+}
