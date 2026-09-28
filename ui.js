@@ -55,7 +55,7 @@ function renderCartModalItems() {
   itemEl.innerHTML = `
     <div class="cart-item-info">
       <h4>${item.title}</h4>
-      <p class="cart-item-price"> \]{item.price.toFixed(2)}</p>
+      <p class="cart-item-price">\[ {item.price.toFixed(2)}</p>
     </div>
     <div class="cart-item-controls">
       <button class="btn-qty dec-btn" data-id="${item.id}">−</button>
