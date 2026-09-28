@@ -794,3 +794,50 @@ body {
     font-size: 0.82rem !important;
   }
 }
+
+/* Track Order Box */
+.track-order-box {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background: white;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  z-index: 200;
+  width: 280px;
+}
+
+.track-order-box.hidden {
+  display: none;
+}
+
+.track-order-box input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.track-order-box button {
+  width: 100%;
+  padding: 8px;
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.track-order-box button:hover {
+  background: #15803d;
+}
+
+#trackOrderResult {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}

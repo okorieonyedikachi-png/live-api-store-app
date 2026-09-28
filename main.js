@@ -212,45 +212,68 @@ checkoutForm.addEventListener('submit', (e) => {
 
 
 
-// ========== TRACK ORDER (from Profile Dropdown) ==========
+// ========== TRACK ORDER (Better Version) ==========
 const trackOrderBtn = document.getElementById('trackOrderBtn');
+const trackOrderBox = document.getElementById('trackOrderBox');
+const trackOrderInput = document.getElementById('trackOrderInput');
+const trackOrderSubmit = document.getElementById('trackOrderSubmit');
+const trackOrderResult = document.getElementById('trackOrderResult');
 
-if (trackOrderBtn) {
-  trackOrderBtn.addEventListener('click', () => {
-    // Close the dropdown first
+if (trackOrderBtn && trackOrderBox) {
+  // Show the track box when clicking "Track Order" in dropdown
+  trackOrderBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    
+    // Close profile dropdown
     const profileDropdown = document.getElementById('profileDropdown');
     if (profileDropdown) profileDropdown.classList.add('hidden');
-
-    // Ask for Order ID
-    const orderId = prompt('Enter your Order ID (e.g., ORD-12345):');
     
-    if (!orderId || orderId.trim() === '') return;
+    // Show track box
+    trackOrderBox.classList.remove('hidden');
+    trackOrderInput.value = '';
+    trackOrderResult.innerHTML = '';
+    trackOrderInput.focus();
+  });
 
-    const orders = JSON.parse(localStorage.getItem('orders')) || [];
-    const foundOrder = orders.find(o => o.id.toUpperCase() === orderId.trim().toUpperCase());
+  // Handle Track button click
+  if (trackOrderSubmit) {
+    trackOrderSubmit.addEventListener('click', () => {
+      const orderId = trackOrderInput.value.trim().toUpperCase();
+      
+      if (!orderId) {
+        trackOrderResult.innerHTML = '<span style="color: red;">Please enter an Order ID</span>';
+        return;
+      }
 
-    if (!foundOrder) {
-      alert('Order ID not found. Please check and try again.');
-      return;
+      const orders = JSON.parse(localStorage.getItem('orders')) || [];
+      const foundOrder = orders.find(o => o.id.toUpperCase() === orderId);
+
+      if (!foundOrder) {
+        trackOrderResult.innerHTML = '<span style="color: red;">Order ID not found</span>';
+        return;
+      }
+
+      // Calculate status
+      const elapsedMinutes = (Date.now() - foundOrder.timestamp) / (1000 * 60);
+      let status = 'Processing ⏳';
+      if (elapsedMinutes >= 5) status = 'Delivered ✅';
+      else if (elapsedMinutes >= 2) status = 'Shipped 🚚';
+
+      trackOrderResult.innerHTML = `
+        <strong>Order Found</strong><br>
+        ID: ${foundOrder.id}<br>
+        Customer: ${foundOrder.customer.name}<br>
+        Total: $${foundOrder.total.toFixed(2)}<br>
+        Status: ${status}
+      `;
+    });
+  }
+
+  // Close track box when clicking outside
+  document.addEventListener('click', (e) => {
+    if (trackOrderBox && !trackOrderBox.contains(e.target) && e.target !== trackOrderBtn) {
+      trackOrderBox.classList.add('hidden');
     }
-
-    // Calculate status
-    const elapsedMinutes = (Date.now() - foundOrder.timestamp) / (1000 * 60);
-    let status = 'Processing ⏳';
-    if (elapsedMinutes >= 5) {
-      status = 'Delivered ✅';
-    } else if (elapsedMinutes >= 2) {
-      status = 'Shipped 🚚';
-    }
-
-    // Show result
-    alert(
-      `Order Found!\n\n` +
-      `Order ID: ${foundOrder.id}\n` +
-      `Customer: ${foundOrder.customer.name}\n` +
-      `Total: $${foundOrder.total.toFixed(2)}\n` +
-      `Status: ${status}`
-    );
   });
 }
 
