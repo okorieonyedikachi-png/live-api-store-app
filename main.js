@@ -212,39 +212,45 @@ checkoutForm.addEventListener('submit', (e) => {
 
 
 
-// Order Tracking Event Listener
-const trackBtn = document.getElementById("trackBtn");
-const trackInput = document.getElementById("trackInput");
-const trackingResult = document.getElementById("trackingResult");
+// ========== TRACK ORDER (from Profile Dropdown) ==========
+const trackOrderBtn = document.getElementById('trackOrderBtn');
 
-if (trackBtn) {
-  trackBtn.addEventListener("click", () => {
-    const orderId = trackInput.value.trim().toUpperCase();
-    const orders = JSON.parse(localStorage.getItem("orders")) || [];
-    const foundOrder = orders.find(o => o.id.toUpperCase() === orderId);
+if (trackOrderBtn) {
+  trackOrderBtn.addEventListener('click', () => {
+    // Close the dropdown first
+    const profileDropdown = document.getElementById('profileDropdown');
+    if (profileDropdown) profileDropdown.classList.add('hidden');
+
+    // Ask for Order ID
+    const orderId = prompt('Enter your Order ID (e.g., ORD-12345):');
+    
+    if (!orderId || orderId.trim() === '') return;
+
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    const foundOrder = orders.find(o => o.id.toUpperCase() === orderId.trim().toUpperCase());
 
     if (!foundOrder) {
-      trackingResult.innerHTML = `<span style="color: red;">Order ID not found.</span>`;
+      alert('Order ID not found. Please check and try again.');
       return;
     }
 
-    // Calculate status based on elapsed time (minutes since order)
+    // Calculate status
     const elapsedMinutes = (Date.now() - foundOrder.timestamp) / (1000 * 60);
-    let status = "Processing ⏳";
+    let status = 'Processing ⏳';
     if (elapsedMinutes >= 5) {
-      status = "Delivered ✅";
+      status = 'Delivered ✅';
     } else if (elapsedMinutes >= 2) {
-      status = "Shipped 🚚";
+      status = 'Shipped 🚚';
     }
 
-    trackingResult.innerHTML = `
-      <div style="border: 1px solid #ddd; padding: 15px; border-radius: 6px; background: #f9f9f9; text-align: left;">
-        <p><strong>Order ID:</strong> ${foundOrder.id}</p>
-        <p><strong>Customer:</strong> ${foundOrder.customer.name}</p>
-        <p><strong>Total:</strong> $${foundOrder.total.toFixed(2)}</p>
-        <p><strong>Status:</strong> <span style="color: #007bff;">${status}</span></p>
-      </div>
-    `;
+    // Show result
+    alert(
+      `Order Found!\n\n` +
+      `Order ID: ${foundOrder.id}\n` +
+      `Customer: ${foundOrder.customer.name}\n` +
+      `Total: $${foundOrder.total.toFixed(2)}\n` +
+      `Status: ${status}`
+    );
   });
 }
 
