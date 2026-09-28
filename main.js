@@ -23,12 +23,94 @@ const checkoutForm = document.getElementById('checkoutForm');
 // Fetch Products from API
 async function fetchProducts() {
   try {
-    const response = await fetch('https://fakestoreapi.com/products');
-    allProducts = await response.json();
+    // Temporary sample products (because FakeStoreAPI is currently down)
+    allProducts = [
+      {
+        id: 1,
+        title: "Fjallraven Backpack",
+        price: 109.95,
+        description: "Perfect for everyday use and walks in the forest.",
+        category: "men's clothing",
+        image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+      },
+      {
+        id: 2,
+        title: "Mens Casual Premium Slim Fit T-Shirts",
+        price: 22.30,
+        description: "Slim-fitting style, contrast raglan long sleeve.",
+        category: "men's clothing",
+        image: "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg"
+      },
+      {
+        id: 3,
+        title: "Mens Cotton Jacket",
+        price: 55.99,
+        description: "Great for Spring/Autumn/Winter.",
+        category: "men's clothing",
+        image: "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg"
+      },
+      {
+        id: 4,
+        title: "Mens Casual Slim Fit",
+        price: 15.99,
+        description: "The color could be slightly different.",
+        category: "men's clothing",
+        image: "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg"
+      },
+      {
+        id: 5,
+        title: "John Hardy Women's Legends Naga Gold Bracelet",
+        price: 695,
+        description: "From the Legends Collection.",
+        category: "jewelery",
+        image: "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg"
+      },
+      {
+        id: 6,
+        title: "Solid Gold Petite Micropave",
+        price: 168,
+        description: "Satisfaction Guaranteed.",
+        category: "jewelery",
+        image: "https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg"
+      },
+      {
+        id: 7,
+        title: "White Gold Plated Princess",
+        price: 9.99,
+        description: "Classic Created Wedding Engagement Ring.",
+        category: "jewelery",
+        image: "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg"
+      },
+      {
+        id: 8,
+        title: "Pierced Owl Rose Gold Plated Earrings",
+        price: 10.99,
+        description: "Rose Gold Plated Double Flared Tunnel Plug Earrings.",
+        category: "jewelery",
+        image: "https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg"
+      },
+      {
+        id: 9,
+        title: "WD 2TB Elements Portable External Hard Drive",
+        price: 64,
+        description: "USB 3.0 and USB 2.0 Compatibility.",
+        category: "electronics",
+        image: "https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg"
+      },
+      {
+        id: 10,
+        title: "SanDisk SSD PLUS 1TB Internal SSD",
+        price: 109,
+        description: "Easy upgrade for faster boot up.",
+        category: "electronics",
+        image: "https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg"
+      }
+    ];
+
     loadingText.style.display = 'none';
     renderProducts(allProducts, productGrid, handleAddToCart);
   } catch (error) {
-    loadingText.innerHTML = '<p style="color: #ef4444;">Failed to load products. Check internet connection.</p>';
+    loadingText.innerHTML = '<p style="color: #ef4444;">Failed to load products.</p>';
   }
 }
 
