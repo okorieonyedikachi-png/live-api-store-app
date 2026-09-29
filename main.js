@@ -768,14 +768,80 @@ if (searchIconBtn && searchBox && headerSearchInput) {
   });
 }
 
-// ========== FLOATING CART BUTTON ==========
+// ========== FLOATING CART BUTTON (Draggable) ==========
 const floatingCartBtn = document.getElementById('floatingCartBtn');
 
 if (floatingCartBtn) {
-  floatingCartBtn.addEventListener('click', () => {
+  // Open cart when clicked
+  floatingCartBtn.addEventListener('click', (e) => {
+    // Only open if it was a real click (not after dragging)
+    if (floatingCartBtn.dataset.dragging === 'true') return;
+    
     const cartModal = document.getElementById('cartModal');
     if (cartModal) {
       cartModal.classList.add('open');
     }
   });
+
+  // Make it draggable
+  let isDragging = false;
+  let startX, startY, initialX, initialY;
+
+  floatingCartBtn.addEventListener('mousedown', startDrag);
+  floatingCartBtn.addEventListener('touchstart', startDrag, { passive: false });
+
+  function startDrag(e) {
+    isDragging = true;
+    floatingCartBtn.dataset.dragging = 'false';
+    
+    const event = e.type.includes('touch') ? e.touches[0] : e;
+    startX = event.clientX;
+    startY = event.clientY;
+    
+    const rect = floatingCartBtn.getBoundingClientRect();
+    initialX = rect.left;
+    initialY = rect.top;
+
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', stopDrag);
+    document.addEventListener('touchmove', drag, { passive: false });
+    document.addEventListener('touchend', stopDrag);
+  }
+
+  function drag(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+
+    const event = e.type.includes('touch') ? e.touches[0] : e;
+    const dx = event.clientX - startX;
+    const dy = event.clientY - startY;
+
+    // If moved more than 5px, mark as dragging
+    if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+      floatingCartBtn.dataset.dragging = 'true';
+    }
+
+    let newX = initialX + dx;
+    let newY = initialY + dy;
+
+    // Keep it inside the screen
+    const maxX = window.innerWidth - floatingCartBtn.offsetWidth;
+    const maxY = window.innerHeight - floatingCartBtn.offsetHeight;
+
+    newX = Math.max(0, Math.min(newX, maxX));
+    newY = Math.max(0, Math.min(newY, maxY));
+
+    floatingCartBtn.style.left = newX + 'px';
+    floatingCartBtn.style.top = newY + 'px';
+    floatingCartBtn.style.right = 'auto';
+    floatingCartBtn.style.bottom = 'auto';
+  }
+
+  function stopDrag() {
+    isDragging = false;
+    document.removeEventListener('mousemove', drag);
+    document.removeEventListener('mouseup', stopDrag);
+    document.removeEventListener('touchmove', drag);
+    document.removeEventListener('touchend', stopDrag);
+  }
 }
