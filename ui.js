@@ -29,10 +29,12 @@ export function updateCartUI() {
   const cartCountEl = document.getElementById('cartCount');
   const cartTotalEl = document.getElementById('cartTotal');
   const modalCartTotalEl = document.getElementById('modalCartTotal');
+  const floatingCartCount = document.getElementById('floatingCartCount');
 
   if (cartCountEl) cartCountEl.textContent = totalCount;
-  if (cartTotalEl) cartTotalEl.textContent = `$${totalPrice}`;
-  if (modalCartTotalEl) modalCartTotalEl.textContent = `$${totalPrice}`;
+  if (cartTotalEl) cartTotalEl.textContent = `\[ {totalPrice}`;
+  if (modalCartTotalEl) modalCartTotalEl.textContent = ` \]{totalPrice}`;
+  if (floatingCartCount) floatingCartCount.textContent = totalCount;
 
   renderCartModalItems();
 }

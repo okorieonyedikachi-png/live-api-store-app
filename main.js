@@ -767,3 +767,13 @@ if (searchIconBtn && searchBox && headerSearchInput) {
     }
   });
 }
+
+// ========== FLOATING CART BUTTON ==========
+const floatingCartBtn = document.getElementById('floatingCartBtn');
+const cartModal = document.getElementById('cartModal');
+
+if (floatingCartBtn && cartModal) {
+  floatingCartBtn.addEventListener('click', () => {
+    cartModal.classList.add('open');
+  });
+}
