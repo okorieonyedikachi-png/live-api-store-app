@@ -770,10 +770,12 @@ if (searchIconBtn && searchBox && headerSearchInput) {
 
 // ========== FLOATING CART BUTTON ==========
 const floatingCartBtn = document.getElementById('floatingCartBtn');
-const cartModal = document.getElementById('cartModal');
 
-if (floatingCartBtn && cartModal) {
+if (floatingCartBtn) {
   floatingCartBtn.addEventListener('click', () => {
-    cartModal.classList.add('open');
+    const cartModal = document.getElementById('cartModal');
+    if (cartModal) {
+      cartModal.classList.add('open');
+    }
   });
 }
