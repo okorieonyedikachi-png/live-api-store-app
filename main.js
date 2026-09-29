@@ -845,3 +845,24 @@ if (floatingCartBtn) {
     document.removeEventListener('touchend', stopDrag);
   }
 }
+
+// ========== CATEGORY FILTER FROM PROFILE DROPDOWN ==========
+document.querySelectorAll('.category-item').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const category = btn.getAttribute('data-category');
+    
+    // Close the dropdown
+    const profileDropdown = document.getElementById('profileDropdown');
+    if (profileDropdown) profileDropdown.classList.add('hidden');
+
+    // Filter the products
+    if (category === 'all') {
+      renderProducts(allProducts, productGrid, handleAddToCart);
+    } else {
+      const filtered = allProducts.filter(p => 
+        p.category.toLowerCase() === category.toLowerCase()
+      );
+      renderProducts(filtered, productGrid, handleAddToCart);
+    }
+  });
+});
